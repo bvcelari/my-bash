@@ -19,6 +19,7 @@ echo $PASS_VM | sudo -S ln -s /opt opt
 
 ## Copying files
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.ssh/myGitHubKey /home/$USER_VM/.ssh
+scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_profile /home/$USER_VM
 
 ## Adding SSH keys to SSH agent
 eval "$(ssh-agent -s)"
