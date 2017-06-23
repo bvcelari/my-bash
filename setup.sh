@@ -10,7 +10,7 @@ export IP_VM=xxx.xxx.x.xxx
 
 
 ## Folders
-mkdir code;mkdir code/github;mkdir code/github/$GITHUB_NAME; code/github/$GITHUB_ORG1
+mkdir code;mkdir code/github;mkdir code/github/$GITHUB_NAME;mkdir code/github/$GITHUB_ORG1
 mkdir ~/.ssh
 
 ## Links
