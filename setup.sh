@@ -1,4 +1,5 @@
 export GITHUB_NAME="carlosrodlop"
+export GITHUB_ORG1="cloudbees"
 export GITHUB_EMAIL="it.carlosrodlop@gmail.com"
 export USER_VM="user"
 export PASS_VM="****"
@@ -9,11 +10,12 @@ export IP_VM=xxx.xxx.x.xxx
 
 
 ## Folders
-
-echo PASS_VM | sudo -S mkdir code;mkdir code/github;mkdir code/github/$GITHUB_NAME
+mkdir code;mkdir code/github;mkdir code/github/$GITHUB_NAME; code/github/$GITHUB_ORG1
 mkdir ~/.ssh
-chown -R $USER_VM:$USER_VM code/
-chown -R $USER_VM:$USER_VM opt/
+
+## Links
+echo $PASS_VM | sudo -S ln -s code /code
+echo $PASS_VM | sudo -S ln -s /opt opt
 
 ## Copying files
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.ssh/myGitHubKey /home/$USER_VM/.ssh
@@ -24,12 +26,12 @@ ssh-add /home/$USER_VM/.ssh/myGitHubKey
 
 ## Tools
 
-echo PASS_VM | sudo -S apt-get -y install python-software-properties
-echo PASS_VM | sudo -S add-apt-repository ppa:webupd8team/java -y
-echo PASS_VM | sudo -S apt-get update
-echo PASS_VM | sudo -S apt-get -y install git
-echo PASS_VM | sudo -S apt-get -y install oracle-java8-installer
-echo PASS_VM | sudo -S apt-get -y install maven
+echo $PASS_VM | sudo -S apt-get -y install python-software-properties
+echo $PASS_VM | sudo -S add-apt-repository ppa:webupd8team/java -y
+echo $PASS_VM | sudo -S apt-get update
+echo $PASS_VM | sudo -S apt-get -y install git
+echo $PASS_VM | sudo -S apt-get -y install oracle-java8-installer
+echo $PASS_VM | sudo -S apt-get -y install maven
 
 git --version
 mvn -v
