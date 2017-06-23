@@ -19,7 +19,7 @@ chown -R $USER_VM:$USER_VM code/
 chown -R $USER_VM:$USER_VM opt/
 
 ## Copying files
-scp $USER_HOST@$IP_HOST:/Users/carlosrodlop/.ssh/myGitHubKey /home/user/.ssh
+scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.ssh/myGitHubKey /home/user/.ssh
 
 ## Adding SSH keys to SSH agent
 eval "$(ssh-agent -s)"
