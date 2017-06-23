@@ -38,3 +38,6 @@ mvn -v
 
 git config --global user.email $GITHUB_EMAIL
 git config --global user.name $GITHUB_NAME
+
+cd code/github/$GITHUB_ORG1
+git clone git@github.com:cloudbees/support-shinobi-tools.git
