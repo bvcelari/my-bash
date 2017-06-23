@@ -1,38 +1,35 @@
 export GITHUB_NAME="carlosrodlop"
 export GITHUB_EMAIL="it.carlosrodlop@gmail.com"
 export USER_VM="user"
+export PASS_VM="****"
 export USER_HOST="carlosrodlop"
 export SUDO_PASS="***"
 export IP_HOST=xxx.xxx.x.xxx
 export IP_VM=xxx.xxx.x.xxx
 
 
-## As root
-
-sudo -i sudo
-
 ## Folders
 
-mkdir code;mkdir code/github;mkdir code/github/$GITHUB_NAME
+echo PASS_VM | sudo -S mkdir code;mkdir code/github;mkdir code/github/$GITHUB_NAME
 mkdir ~/.ssh
 chown -R $USER_VM:$USER_VM code/
 chown -R $USER_VM:$USER_VM opt/
 
 ## Copying files
-scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.ssh/myGitHubKey /home/user/.ssh
+scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.ssh/myGitHubKey /home/$USER_VM/.ssh
 
 ## Adding SSH keys to SSH agent
 eval "$(ssh-agent -s)"
-ssh-add /home/user/.ssh/myGitHubKey
+ssh-add /home/$USER_VM/.ssh/myGitHubKey
 
 ## Tools
 
-apt-get -y install python-software-properties
-add-apt-repository ppa:webupd8team/java -y
-apt-get update
-apt-get -y install git
-apt-get -y install oracle-java8-installer
-apt-get -y install maven
+echo PASS_VM | sudo -S apt-get -y install python-software-properties
+echo PASS_VM | sudo -S add-apt-repository ppa:webupd8team/java -y
+echo PASS_VM | sudo -S apt-get update
+echo PASS_VM | sudo -S apt-get -y install git
+echo PASS_VM | sudo -S apt-get -y install oracle-java8-installer
+echo PASS_VM | sudo -S apt-get -y install maven
 
 git --version
 mvn -v
