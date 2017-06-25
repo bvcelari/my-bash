@@ -22,6 +22,9 @@ echo $PASS_VM | sudo -S ln -s /opt opt
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.ssh/myGitHubKey /home/$USER_VM/.ssh
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.m2/settings.xml /home/$USER_VM/.m2
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_profile /home/$USER_VM
+scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.zendesk-cli.config /home/$USER_VM
+
+source /home/$USER_VM/.bash_profile
 
 ## Adding SSH keys to SSH agent
 eval "$(ssh-agent -s)"
