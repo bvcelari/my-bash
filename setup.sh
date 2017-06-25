@@ -1,5 +1,3 @@
-set_variables()
-
 export GITHUB_NAME="carlosrodlop"
 export GITHUB_ORG1="cloudbees"
 export GITHUB_EMAIL="it.carlosrodlop@gmail.com"
