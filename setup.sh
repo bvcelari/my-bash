@@ -35,9 +35,7 @@ echo $PASS_VM | sudo -S apt-get -y install oracle-java8-installer
 echo $PASS_VM | sudo -S apt-get -y install maven
 # Docker 
 #    Packages Ubuntu/Debian: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/
-#    Source list:
-#       Experimenatal: sudo echo "deb https://apt.dockerproject.org/repo ubuntu-trusty experimental" > /etc/apt/sources.list.d/docker.list
-#       Main: sudo sh -c "echo deb https://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list" 
+#    Source list (Main vs Experimental): https://stackoverflow.com/questions/38117469/installing-older-docker-engine-specifically-1-11-0dev/38119892#38119892
 
 git --version
 mvn -v
