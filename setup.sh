@@ -33,6 +33,9 @@ echo $PASS_VM | sudo -S apt-get update
 echo $PASS_VM | sudo -S apt-get -y install git
 echo $PASS_VM | sudo -S apt-get -y install oracle-java8-installer
 echo $PASS_VM | sudo -S apt-get -y install maven
+# All docker pacakes for Ubuntu/Debian: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/
+
+
 
 git --version
 mvn -v
