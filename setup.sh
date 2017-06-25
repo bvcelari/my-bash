@@ -1,16 +1,18 @@
+set_variables()
+
 export GITHUB_NAME="carlosrodlop"
 export GITHUB_ORG1="cloudbees"
 export GITHUB_EMAIL="it.carlosrodlop@gmail.com"
 export USER_VM="user"
 export PASS_VM="****"
 export USER_HOST="carlosrodlop"
-export SUDO_PASS="***"
 export IP_HOST=xxx.xxx.x.xxx
 export IP_VM=xxx.xxx.x.xxx
 
 
 ## Folders
 mkdir code;mkdir code/github;mkdir code/github/$GITHUB_NAME;mkdir code/github/$GITHUB_ORG1
+mkdir Support;mkdir Support/cases
 mkdir ~/.ssh
 mkdir ~/.m2
 
@@ -23,7 +25,6 @@ scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.ssh/myGitHubKey /home/$USER_VM/.ssh
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.m2/settings.xml /home/$USER_VM/.m2
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_profile /home/$USER_VM
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.zendesk-cli.config /home/$USER_VM
-
 source /home/$USER_VM/.bash_profile
 
 ## Adding SSH keys to SSH agent
@@ -44,9 +45,13 @@ echo $PASS_VM | sudo -S apt-get -y install maven
 
 git --version
 mvn -v
+docker version
 
 git config --global user.email $GITHUB_EMAIL
 git config --global user.name $GITHUB_NAME
 
 cd code/github/$GITHUB_ORG1
 git clone git@github.com:cloudbees/support-shinobi-tools.git
+cd support-shinobi-tools
+
+
