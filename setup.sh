@@ -33,9 +33,11 @@ echo $PASS_VM | sudo -S apt-get update
 echo $PASS_VM | sudo -S apt-get -y install git
 echo $PASS_VM | sudo -S apt-get -y install oracle-java8-installer
 echo $PASS_VM | sudo -S apt-get -y install maven
-# All docker pacakes for Ubuntu/Debian: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/
-
-
+# Docker 
+#    Packages Ubuntu/Debian: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/
+#    Source list:
+#       Experimenatal: sudo echo "deb https://apt.dockerproject.org/repo ubuntu-trusty experimental" > /etc/apt/sources.list.d/docker.list
+#       Main: sudo sh -c "echo deb https://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list" 
 
 git --version
 mvn -v
