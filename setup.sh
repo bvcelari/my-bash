@@ -37,6 +37,7 @@ git config --global user.name $GITHUB_NAME
 git --version
 }
 
+# Supported Java Version: https://support.cloudbees.com/hc/en-us/articles/203601234-CloudBees-Jenkins-Platform-Supported-Java-Versions
 setJava&Maven() {
 ### Oracle
 # echo $PASS_VM | sudo -S apt-get -y install python-software-properties
