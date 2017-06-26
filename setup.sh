@@ -40,8 +40,6 @@ setGitTool(){
  git --version
 }
 
-## Java & Maven
-
 setJavaMaven() {
  echo $PASS_VM | sudo -S apt-get -y install python-software-properties
  echo $PASS_VM | sudo -S add-apt-repository ppa:webupd8team/java -y
