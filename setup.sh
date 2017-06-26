@@ -62,9 +62,8 @@ docker version
 
 ## Shinobi
 setShinobi() {
+scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.zendesk-cli.config /home/$USER_VM
 cd code/github/$GITHUB_ORG1
 git clone git@github.com:cloudbees/support-shinobi-tools.git
-cd support-shinobi-tools
-scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.zendesk-cli.config /home/$USER_VM
-./ install.sh
+./support-shinobi-tools/install.sh
 }
