@@ -50,7 +50,6 @@ mvn -v
 ## Docker 
 #    Packages Ubuntu/Debian: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/
 #    Source list (Main vs Experimental): https://stackoverflow.com/questions/38117469/installing-older-docker-engine-specifically-1-11-0dev/38119892#38119892
-
 setDocker() {
 docker version
 }
