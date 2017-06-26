@@ -14,7 +14,7 @@ ZSH_THEME="agnoster"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
-HYPHEN_INSENSITIVE="true"
+# HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -53,9 +53,10 @@ HYPHEN_INSENSITIVE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git bundler docker-compose docker)
 
-source $ZSH
+source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
 source $HOME/.bash_profile
 
 # export MANPATH="/usr/local/man:$MANPATH"
