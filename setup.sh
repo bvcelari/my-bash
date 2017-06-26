@@ -60,24 +60,48 @@ setJavaMaven() {
 ### OpenJDK
 sudo add-apt-repository ppa:openjdk-r/ppa -y
 sudo apt-get update
-echo $PASS_VM | sudo apt-get install -y openjdk-8-jdk
+echo $PASS_VM | sudo -S apt-get install -y openjdk-8-jdk
 echo $PASS_VM | sudo -S apt-get -y install maven
 echo "Asking for HOST Password"
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.m2/settings.xml /home/$USER_VM/.m2
 mvn -v
 }
 
-## Docker 
+## Docker (run with sudo)
 setDocker() {
 # Binaries: http://docs.master.dockerproject.org/engine/installation/binaries/
 curl https://get.docker.com/builds/Linux/x86_64/docker-1.12.6.tgz > docker-1.12.6.tgz
 tar -xvzf docker-1.12.6.tgz
 echo $PASS_VM |sudo mv docker/* /usr/bin/
-sudo dockerd &
-docker version
+sudo dockerd
+sudo docker version
 # Packages Ubuntu/Debian: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/
 # Source list (Main vs Experimental): https://stackoverflow.com/questions/38117469/installing-older-docker-engine-specifically-1-11-0dev/38119892#38119892
 }
+
+cgroupfs_mount() {
+# see also https://github.com/tianon/cgroupfs-mount/blob/master/cgroupfs-mount
+        if grep -v '^#' /etc/fstab | grep -q cgroup \
+                || [ ! -e /proc/cgroups ] \
+                || [ ! -d /sys/fs/cgroup ]; then
+                return
+        fi
+        if ! mountpoint -q /sys/fs/cgroup; then
+                mount -t tmpfs -o uid=0,gid=0,mode=0755 cgroup /sys/fs/cgroup
+        fi
+        (
+                cd /sys/fs/cgroup
+                for sys in $(awk '!/^#/ { if ($4 == 1) print $1 }' /proc/cgroups); do
+                        mkdir -p $sys
+                        if ! mountpoint -q $sys; then
+                                if ! mount -n -t cgroup -o $sys cgroup $sys; then
+                                        rmdir $sys || true
+                                fi
+                        fi
+                done
+        )
+}
+
 
 ## Shinobi
 setShinobi() {
