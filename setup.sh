@@ -67,18 +67,6 @@ scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.m2/settings.xml /home/$USER_VM/.m2
 mvn -v
 }
 
-## Docker (run with sudo)
-setDocker() {
-# Binaries: http://docs.master.dockerproject.org/engine/installation/binaries/
-curl https://get.docker.com/builds/Linux/x86_64/docker-1.12.6.tgz > docker-1.12.6.tgz
-tar -xvzf docker-1.12.6.tgz
-echo $PASS_VM |sudo mv docker/* /usr/bin/
-sudo dockerd
-sudo docker version
-# Packages Ubuntu/Debian: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/
-# Source list (Main vs Experimental): https://stackoverflow.com/questions/38117469/installing-older-docker-engine-specifically-1-11-0dev/38119892#38119892
-}
-
 # https://github.com/moby/moby/issues/8791
 cgroupfs_mount() {
   sudo -i
@@ -105,11 +93,23 @@ cgroupfs_mount() {
   su $USER_VM
 }
 
+## Docker (run with sudo)
+setDocker() {
+# Binaries: http://docs.master.dockerproject.org/engine/installation/binaries/
+curl https://get.docker.com/builds/Linux/x86_64/docker-1.12.6.tgz > docker-1.12.6.tgz
+tar -xvzf docker-1.12.6.tgz
+echo $PASS_VM |sudo mv docker/* /usr/bin/
+cgroupfs_mount
+sudo dockerd &
+sudo docker version
+# Packages Ubuntu/Debian: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/
+# Source list (Main vs Experimental): https://stackoverflow.com/questions/38117469/installing-older-docker-engine-specifically-1-11-0dev/38119892#38119892
+}
 
 ## Shinobi
 setShinobi() {
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.zendesk-cli.config /home/$USER_VM
 cd code/github/$GITHUB_ORG1
 git clone git@github.com:cloudbees/support-shinobi-tools.git
-./support-shinobi-tools/install.sh
+./code/github/$GITHUB_ORG1/support-shinobi-tools/install.sh
 }
