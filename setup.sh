@@ -20,7 +20,7 @@ echo $PASS_VM | sudo -S ln -s code /code
 echo $PASS_VM | sudo -S ln -s /opt opt
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_shinobi /home/$USER_VM
 cat <<EOT >> ~/.bash_profile
-~/.bash_shinobi
+source ~/.bash_shinobi
 EOT
 source /home/$USER_VM/.bash_profile
 }
@@ -41,6 +41,8 @@ setJavaMaven() {
 echo $PASS_VM | sudo -S apt-get -y install python-software-properties
 echo $PASS_VM | sudo -S add-apt-repository ppa:webupd8team/java -y
 echo $PASS_VM | sudo -S apt-get update
+echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
 echo $PASS_VM | sudo -S apt-get -y install oracle-java8-installer
 echo $PASS_VM | sudo -S apt-get -y install maven
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.m2/settings.xml /home/$USER_VM/.m2
