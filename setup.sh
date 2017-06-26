@@ -37,17 +37,20 @@ git config --global user.name $GITHUB_NAME
 git --version
 }
 
-setJavaMaven() {
-echo $PASS_VM | sudo -S apt-get -y install python-software-properties
-echo $PASS_VM | sudo -S add-apt-repository ppa:webupd8team/java -y
-echo $PASS_VM | sudo -S apt-get update
-echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
-echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
-echo $PASS_VM | sudo -S apt-get -y install oracle-java8-installer
+setJava&Maven() {
+### Oracle
+# echo $PASS_VM | sudo -S apt-get -y install python-software-properties
+# echo $PASS_VM | sudo -S add-apt-repository ppa:webupd8team/java -y
+# echo $PASS_VM | sudo -S apt-get update
+# echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+# echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
+# echo $PASS_VM | sudo -S apt-get -y install oracle-java8-installer
+### OpenJDK
+echo $PASS_VM | sudo apt-get install openjdk-8-jdk
 echo $PASS_VM | sudo -S apt-get -y install maven
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.m2/settings.xml /home/$USER_VM/.m2
 mvn -v
-} 
+}
 
 ## Docker 
 #    Packages Ubuntu/Debian: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/
