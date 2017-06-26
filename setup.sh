@@ -18,10 +18,10 @@ setMyEnv(){
  mkdir ~/.m2
  echo $PASS_VM | sudo -S ln -s code /code
  echo $PASS_VM | sudo -S ln -s /opt opt
- cat <<EOF > ~/.bash_profile
+ scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_shinobi /home/$USER_VM
+ cat <<EOF >> ~/.bash_profile
  source ~/.bash_shinobi
  EOF
- scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_shinobi /home/$USER_VM
  source /home/$USER_VM/.bash_profile
 }
 
