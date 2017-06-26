@@ -7,8 +7,8 @@ export GITHUB_EMAIL="it.carlosrodlop@gmail.com"
 export USER_VM="user"
 export PASS_VM="user1"
 export USER_HOST="carlosrodlop"
-export IP_HOST=xxx.xxx.x.xxx
-export IP_VM=xxx.xxx.x.xxx
+export IP_HOST=192.168.0.x
+export IP_VM=192.168.0.x
 }
 
 setMyEnv(){
