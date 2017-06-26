@@ -27,6 +27,7 @@ mkdir ~/.ssh
 mkdir ~/.m2
 echo $PASS_VM | sudo -S ln -s code /code
 echo $PASS_VM | sudo -S ln -s /opt opt
+echo "Asking for HOST Password"
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_shinobi /home/$USER_VM
 cat <<EOT >> ~/.bash_profile
 source ~/.bash_shinobi
@@ -38,6 +39,7 @@ source /home/$USER_VM/.bash_profile
 
 setGitTool(){ 
 echo $PASS_VM | sudo -S apt-get -y install git
+echo "Asking for HOST Password"
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.ssh/myGitHubKey /home/$USER_VM/.ssh
 eval "$(ssh-agent -s)"
 ssh-add /home/$USER_VM/.ssh/myGitHubKey
@@ -58,6 +60,7 @@ setJavaMaven() {
 ### OpenJDK
 echo $PASS_VM | sudo apt-get install openjdk-8-jdk
 echo $PASS_VM | sudo -S apt-get -y install maven
+echo "Asking for HOST Password"
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.m2/settings.xml /home/$USER_VM/.m2
 mvn -v
 }
