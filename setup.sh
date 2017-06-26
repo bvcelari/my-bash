@@ -79,6 +79,7 @@ sudo docker version
 # Source list (Main vs Experimental): https://stackoverflow.com/questions/38117469/installing-older-docker-engine-specifically-1-11-0dev/38119892#38119892
 }
 
+# https://github.com/moby/moby/issues/8791
 cgroupfs_mount() {
 # see also https://github.com/tianon/cgroupfs-mount/blob/master/cgroupfs-mount
         if grep -v '^#' /etc/fstab | grep -q cgroup \
