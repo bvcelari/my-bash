@@ -27,7 +27,7 @@ mkdir ~/.ssh
 mkdir ~/.m2
 echo $PASS_VM | sudo -S ln -s code /code
 echo $PASS_VM | sudo -S ln -s /opt opt
-echo "Asking for HOST Password"
+echo "$USER_HOST needs to identified"
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_shinobi /home/$USER_VM
 cat <<EOT >> ~/.bash_profile
 source ~/.bash_shinobi
@@ -39,7 +39,7 @@ source /home/$USER_VM/.bash_profile
 
 setGitTool(){ 
 echo $PASS_VM | sudo -S apt-get -y install git
-echo "Asking for HOST Password"
+echo "$USER_HOST needs to identified"
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.ssh/myGitHubKey /home/$USER_VM/.ssh
 eval "$(ssh-agent -s)"
 ssh-add /home/$USER_VM/.ssh/myGitHubKey
@@ -62,7 +62,7 @@ sudo add-apt-repository ppa:openjdk-r/ppa -y
 sudo apt-get update
 echo $PASS_VM | sudo -S apt-get install -y openjdk-8-jdk
 echo $PASS_VM | sudo -S apt-get -y install maven
-echo "Asking for HOST Password"
+echo "$USER_HOST needs to identified"
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.m2/settings.xml /home/$USER_VM/.m2
 mvn -v
 }
@@ -104,10 +104,12 @@ sudo dockerd &
 sudo docker version
 # Packages Ubuntu/Debian: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/
 # Source list (Main vs Experimental): https://stackoverflow.com/questions/38117469/installing-older-docker-engine-specifically-1-11-0dev/38119892#38119892
+# Postinstallation: https://docs.docker.com/engine/installation/linux/linux-postinstall/
 }
 
 ## Shinobi
 setShinobi() {
+echo "$USER_HOST needs to identified"
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.zendesk-cli.config /home/$USER_VM
 cd code/github/$GITHUB_ORG1
 git clone git@github.com:cloudbees/support-shinobi-tools.git
