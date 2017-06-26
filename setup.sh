@@ -9,6 +9,15 @@ export PASS_VM="user1"
 export USER_HOST="carlosrodlop"
 export IP_HOST=192.168.0.x
 export IP_VM=192.168.0.x
+####################
+echo "GITHUB_NAME $GITHUB_NAME"
+echo $GITHUB_ORG1
+echo $GITHUB_EMAIL
+echo $USER_VM
+echo $PASS_VM
+echo $USER_HOST
+echo $IP_HOST
+echo $IP_VM=
 }
 
 setMyEnv(){
