@@ -1,0 +1,84 @@
+#### Repos
+##### CloudBees Support
+export CB_SUPPORT_HOME="$HOME/Support"
+export SHINOBI_HOME="$GITHUB/cloudbees/support-shinobi-tools"
+
+# CLOUDBEES SUPPORT
+export CJP_VERSION="2.32.3.2"
+export OSS_LTS_LATEST="2.32.1"
+export CB_SUPPORT_HOME="$HOME/Support"
+export LABS="$CB_SUPPORT_HOME/labs"
+export CASES="$CB_SUPPORT_HOME/cases"
+export JAVA_OPTS_CBS="-Djenkins.model.Jenkins.slaveAgentPort=$(($RANDOM%63000+2001)) -Djenkins.install.runSetupWizard=false -Djenkins.model.Jenkins.logStartupPerformance=true"
+
+# SYSTEM
+export PATH=$PATH:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec
+export GREP_COLOR="1;37;41"
+
+### Setting for the new UTF-8 terminal for SSH
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+##################
+# FUNCTIONS
+###################
+
+zd() {
+	if [ -z "$1" ]; then
+    echo "\nOpening cases folder...\n"
+		cd "$CASES/"
+  else
+		echo "\nOpening case ZD-${1}...\n"
+		command cbsupport-case $1
+		cd "$CASES/$1"
+	fi
+}
+
+up-cje1(){
+  local version=$CJP_VERSION
+  local jenkins_home=$LABS/jenkins-home-cje-1
+  cd $jenkins_home
+  if [ ! -z "$1" ];then
+     version=$1
+  fi
+	JAVA_OPTS="$JAVA_OPTS_CBS -Dhudson.TcpSlaveAgentListener.hostName=cje1.example.crl" \
+    DEBUG_PORT=8191 HTTP_PORT=8181 \
+    JENKINS_HOME=$jenkins_home HTTP_ADDRESS=0.0.0.0 cbsupport-jenkins je $version
+  }
+  
+up-cje2(){
+  local version=$CJP_VERSION
+  local jenkins_home=$LABS/jenkins-home-cje-2
+  cd $jenkins_home
+  if [ ! -z "$1" ];then
+     version=$1
+  fi
+	JAVA_OPTS="$JAVA_OPTS_CBS -Dhudson.TcpSlaveAgentListener.hostName=cje2.example.crl" \
+    DEBUG_PORT=8192 HTTP_PORT=8182 \
+    JENKINS_HOME=$jenkins_home HTTP_ADDRESS=0.0.0.0 cbsupport-jenkins je $version
+}
+
+up-oss(){
+  local version=$OSS_LTS_LATEST
+  local jenkins_home=$LABS/jenkins-home-oss
+  cd $jenkins_home
+  if [ ! -z "$1" ];then
+     version=$1
+  fi
+	JAVA_OPTS="$JAVA_OPTS_CBS -Dhudson.TcpSlaveAgentListener.hostName=oss.example.crl" \
+    DEBUG_PORT=8193 HTTP_PORT=8183 \
+    JENKINS_HOME=$jenkins_home HTTP_ADDRESS=0.0.0.0 cbsupport-jenkins oss $version
+}
+
+up-cjoc(){
+  local version=$CJP_VERSION
+  local jenkins_home=$LABS/jenkins-home-cjoc
+  if [ ! -z "$1" ];then
+     version=$1
+  fi
+	JAVA_OPTS="$JAVA_OPTS_CBS -Dhudson.TcpSlaveAgentListener.hostName=cjoc.example.crl" \
+    DEBUG_PORT=9181 HTTP_PORT=9191 \
+    JENKINS_HOME=$jenkins_home HTTP_ADDRESS=0.0.0.0 cbsupport-jenkins joc $version
+}
+
+alias cbsupport-bundle-jenkins='HTTP_ADDRESS=0.0.0.0 cbsupport-bundle-jenkins'
