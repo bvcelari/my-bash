@@ -58,7 +58,9 @@ setJavaMaven() {
 # echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
 # echo $PASS_VM | sudo -S apt-get -y install oracle-java8-installer
 ### OpenJDK
-echo $PASS_VM | sudo apt-get install openjdk-8-jdk
+sudo add-apt-repository ppa:openjdk-r/ppa -y
+sudo apt-get update
+echo $PASS_VM | sudo apt-get install -y openjdk-8-jdk
 echo $PASS_VM | sudo -S apt-get -y install maven
 echo "Asking for HOST Password"
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.m2/settings.xml /home/$USER_VM/.m2
@@ -66,10 +68,15 @@ mvn -v
 }
 
 ## Docker 
-#    Packages Ubuntu/Debian: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/
-#    Source list (Main vs Experimental): https://stackoverflow.com/questions/38117469/installing-older-docker-engine-specifically-1-11-0dev/38119892#38119892
 setDocker() {
+# Binaries: http://docs.master.dockerproject.org/engine/installation/binaries/
+curl https://get.docker.com/builds/Linux/x86_64/docker-1.12.6.tgz > docker-1.12.6.tgz
+tar -xvzf docker-1.12.6.tgz
+echo $PASS_VM |sudo mv docker/* /usr/bin/
+sudo dockerd &
 docker version
+# Packages Ubuntu/Debian: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/
+# Source list (Main vs Experimental): https://stackoverflow.com/questions/38117469/installing-older-docker-engine-specifically-1-11-0dev/38119892#38119892
 }
 
 ## Shinobi
