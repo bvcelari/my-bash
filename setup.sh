@@ -21,7 +21,7 @@ setMyEnv(){
  cat <<EOF > ~/.bash_profile
  source ~/.bash_shinobi
  EOF
- scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_shinobi /home/$USER_VM/
+ scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_shinobi /home/$USER_VM
  source /home/$USER_VM/.bash_profile
 }
 
