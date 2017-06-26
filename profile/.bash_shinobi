@@ -1,5 +1,6 @@
 #### Repos
 ##### CloudBees Support
+export GITHUB=/code/github
 export CB_SUPPORT_HOME="$HOME/Support"
 export SHINOBI_HOME="$GITHUB/cloudbees/support-shinobi-tools"
 
