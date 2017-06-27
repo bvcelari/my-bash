@@ -1,10 +1,6 @@
 #### Repos
 ##### CloudBees Support
-<<<<<<< HEAD
-export GITHUB="$CODE/github"
-=======
 export GITHUB="$HOME/code/github"
->>>>>>> origin/master
 export CB_SUPPORT_HOME="$HOME/Support"
 export SHINOBI_HOME="$GITHUB/cloudbees/support-shinobi-tools"
 export MAVEN_HOME="/opt/maven"
