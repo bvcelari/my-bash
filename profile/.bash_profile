@@ -9,7 +9,7 @@ source $HOME/.bash_shinobi
 ###################
 
 # SCR
-export CODE="/pre/code"
+export CODE="/code"
 export GITHUB="$CODE/github"
 export BITBUKET="$CODE/bitbucket"
 export RIOXSVN="$CODE/riouxsvn"
