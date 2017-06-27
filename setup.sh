@@ -25,7 +25,6 @@ mkdir code;mkdir code/github;mkdir code/github/$GITHUB_ORG1
 mkdir Support;mkdir Support/cases
 mkdir ~/.ssh
 mkdir ~/.m2
-echo $PASS_VM | sudo -S ln -s code /code
 echo $PASS_VM | sudo -S ln -s /opt opt
 echo "$USER_HOST needs to identified"
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_shinobi /home/$USER_VM
@@ -49,7 +48,7 @@ git --version
 }
 
 # Supported Java Version: https://support.cloudbees.com/hc/en-us/articles/203601234-CloudBees-Jenkins-Platform-Supported-Java-Versions
-setJavaMaven() {
+setJava() {
 ### Oracle
 # echo $PASS_VM | sudo -S apt-get -y install python-software-properties
 # echo $PASS_VM | sudo -S add-apt-repository ppa:webupd8team/java -y
@@ -65,6 +64,14 @@ echo $PASS_VM | sudo -S apt-get -y install maven
 echo "$USER_HOST needs to identified"
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.m2/settings.xml /home/$USER_VM/.m2
 mvn -v
+}
+
+setMaven(){ 
+#Binaries https://archive.apache.org/dist/maven/binaries/
+curl http://apache.uvigo.es/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz > apache-maven-3.5.0-bin.tar.gz
+tar xzvf apache-maven-3.5.0-bin.tar.gz
+mv apache-maven-3.5.0
+echo $PASS_VM |sudo mv apache-maven/* /opt
 }
 
 # https://github.com/moby/moby/issues/8791
@@ -98,9 +105,7 @@ setDocker() {
 # Binaries: http://docs.master.dockerproject.org/engine/installation/binaries/
 curl https://get.docker.com/builds/Linux/x86_64/docker-1.12.6.tgz > docker-1.12.6.tgz
 tar -xvzf docker-1.12.6.tgz
-echo $PASS_VM |sudo mv docker/* /usr/bin/
-cgroupfs_mount
-sudo dockerd &
+echo $PASS_VM |sudo mv docker /opt
 sudo docker version
 # Packages Ubuntu/Debian: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/
 # Source list (Main vs Experimental): https://stackoverflow.com/questions/38117469/installing-older-docker-engine-specifically-1-11-0dev/38119892#38119892
@@ -114,4 +119,12 @@ scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.zendesk-cli.config /home/$USER_VM
 cd code/github/$GITHUB_ORG1
 git clone git@github.com:cloudbees/support-shinobi-tools.git
 ./code/github/$GITHUB_ORG1/support-shinobi-tools/install.sh
+}
+
+## ENV
+runDocker(){
+sudo -i
+cgroupfs_mount
+sudo su $USER_VM
+sudo dockerd &
 }
