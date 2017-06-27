@@ -3,6 +3,8 @@
 export GITHUB="$HOME/code/github"
 export CB_SUPPORT_HOME="$HOME/Support"
 export SHINOBI_HOME="$GITHUB/cloudbees/support-shinobi-tools"
+export MAVEN_HOME="/opt/maven"
+export DOCKER_HOME="/opt/docker"
 
 # CLOUDBEES SUPPORT
 export CJP_VERSION="2.32.3.2"
