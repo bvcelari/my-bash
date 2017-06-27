@@ -15,7 +15,7 @@ export CASES="$CB_SUPPORT_HOME/cases"
 export JAVA_OPTS_CBS="-Djenkins.model.Jenkins.slaveAgentPort=$(($RANDOM%63000+2001)) -Djenkins.install.runSetupWizard=false -Djenkins.model.Jenkins.logStartupPerformance=true"
 
 # SYSTEM
-export PATH=$PATH:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec
+export PATH=$PATH:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec:$MAVEN_HOME/bin:$DOCKER_HOME
 export GREP_COLOR="1;37;41"
 
 ### Setting for the new UTF-8 terminal for SSH
