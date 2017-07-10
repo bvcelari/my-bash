@@ -1,10 +1,4 @@
 ##################
-# SHINOBI_CONFIG
-###################
-
-source $HOME/.bash_shinobi
-
-##################
 # VARIABLES 
 ###################
 
@@ -30,10 +24,12 @@ export DOCKERFILES="$GITHUB/carlosrodlop_mock_org/dockerFiles-examples"
 export CERTS="/Users/carlosrodlop/.ssh"
 
 # TOOLS
+source $HOME/.bash_shinobi ## Load shinobi config
 export TOOLS="/opt"
 export MAVEN_HOME="$TOOLS/maven/apache-maven-3.3.9"
 export VM_MANAGE="/Applications/VirtualBox.app/Contents/MacOS"
 export ARTIFACTORY_HOME="$TOOLS/artifactory/artifactory-oss-5.2.0" # Local Repos for maven, grandle and ivy
+export OPSCORE_HOME="$TOOLS/opscore" # https://cloudbees.atlassian.net/wiki/display/OPS/OpsCore+-+Setup
 export TEXT_EDITOR="atom"
 export DOCKER_ID_USER="carlosrodlop"
 #### For mac
@@ -43,11 +39,11 @@ export TRAINING="$CB_SUPPORT_HOME/training"
 export CASES="$CB_SUPPORT_HOME/cases"
 export JAVA_OPTS_CBS="-Djenkins.model.Jenkins.slaveAgentPort=$(($RANDOM%63000+2001)) -Djenkins.install.runSetupWizard=false -Djenkins.model.Jenkins.logStartupPerformance=true"
 ### PSE 
-export PSE_HOME="/opt/pse/pse_1.5.1"
+export PSE_HOME="/opt/pse/pse_1.6.3"
 export PROJECT="$TRAINING/CloudBees/bees-pse-project"
 
 # SYSTEM
-export PATH=$PATH:$MAVEN_HOME/bin:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec:$PSE_HOME/bin:$VM_MANAGE:$SHINOBI_HOME_SCRIPTS_HIGHCPU
+export PATH=$PATH:$MAVEN_HOME/bin:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec:$PSE_HOME/bin:$VM_MANAGE:$OPSCORE_HOME
 export GREP_COLOR="1;37;41"
 
 ### Setting for the new UTF-8 terminal for SSH
@@ -58,23 +54,30 @@ export LC_ALL=en_US.UTF-8
 # FUNCTIONS
 ###################
 
-git-update-upstream (){
+my-git-update-upstream (){
 	git checkout master ; git fetch upstream ; git merge upstream/master; git push origin master
 }
 
-git-update-master (){
-	git checkout master ; git pull
+my-git-update-master (){
+	git checkout master ; git pull origin master
 }
 
-git-push-simple (){
+my-git-push (){
 	git add . ; git commit -m  "update" ; git push origin $1
 }
 
-docker-login (){
+my-git-wipeOutAllButMaster (){
+	#Remote
+	git branch | grep -v "master" | sed 's/^[ *]*//' | sed 's/^/git push origin :/' | bash
+	#Locally
+	git branch | grep -v "master" | sed 's/^[ *]*//' | sed 's/^/git branch -D /' | bash
+}
+
+my-docker-login (){
 	docker login --username=carlosrodlop
 }	
 
-go2(){
+my-go2(){
 	location=$1
 	if [ -z $location ];then
      echo "please, specify a location"
@@ -95,12 +98,12 @@ go2(){
 	fi
 }
 
-up-artifactory(){
+my-up-artifactory(){
 	echo "\n\nRunning as default on 8081\n User: admin - Pass: password\n\n"
 	command sh $ARTIFACTORY_HOME/bin/artifactory.sh 
 }
 
-ssh-unicorn(){
+my-ssh-unicorn(){
 	local USER="ubuntu"
 	local MACHINE=$1
 	local UNICORN_DOMAIN="unicorn.beescloud.com"
@@ -171,11 +174,11 @@ else
 fi
 }
 
-profile-edit (){
+my-profile-edit (){
 	$TEXT_EDITOR $HOME/.zshrc $HOME/.bash_profile $HOME/.bash_shinobi
 }
 
-profile-load (){
+my-profile-load (){
 	### Load of files in the following order
 	cp $HOME/.zshrc $MY_PROFILES
 	cp $HOME/.bash_profile $MY_PROFILES
@@ -183,7 +186,7 @@ profile-load (){
 	source $HOME/.zshrc
 }
 
-myhost-edit (){
+my-host-edit (){
   $TEXT_EDITOR /etc/hosts
 }
 

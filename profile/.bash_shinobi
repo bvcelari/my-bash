@@ -16,11 +16,6 @@ export JAVA_OPTS_CBS="-Djenkins.model.Jenkins.slaveAgentPort=$(($RANDOM%63000+20
 
 # SYSTEM
 export PATH=$PATH:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec:$MAVEN_HOME/bin:$DOCKER_HOME
-export GREP_COLOR="1;37;41"
-
-### Setting for the new UTF-8 terminal for SSH
-export LC_CTYPE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
 
 ##################
 # FUNCTIONS
@@ -83,5 +78,3 @@ up-cjoc(){
     DEBUG_PORT=9181 HTTP_PORT=9191 \
     JENKINS_HOME=$jenkins_home HTTP_ADDRESS=0.0.0.0 cbsupport-jenkins joc $version
 }
-
-alias cbsupport-bundle-jenkins='HTTP_ADDRESS=0.0.0.0 cbsupport-bundle-jenkins'
