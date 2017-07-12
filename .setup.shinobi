@@ -39,7 +39,8 @@ mkdir $HOME/code; mkdir $HOME/code/github; mkdir $HOME/code/github/$GITHUB_ORG1
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.zendesk-cli.config /home/$USER_VM
 cd $HOME/code/github/$GITHUB_ORG1
 git clone git@github.com:cloudbees/support-shinobi-tools.git
-./code/github/$GITHUB_ORG1/support-shinobi-tools/install.sh
+cd $HOME/code/github/$GITHUB_ORG1/support-shinobi-tools
+./install.sh
 }
 
 loadBash_shinobi(){
