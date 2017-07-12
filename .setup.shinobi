@@ -4,11 +4,11 @@ setVariables(){
 export GITHUB_NAME="carlosrodlop"
 export GITHUB_ORG1="cloudbees"
 export GITHUB_EMAIL="it.carlosrodlop@gmail.com"
-export USER_VM="user"
-export PASS_VM="user1"
+export USER_VM="vagrant"
+export PASS_VM="vagrant"
 export USER_HOST="carlosrodlop"
-export IP_HOST=192.168.0.x
-export IP_VM=192.168.0.x
+export IP_HOST=192.168.0.12
+export IP_VM=192.168.0.31
 ####################
 echo "GITHUB_NAME: $GITHUB_NAME"
 echo "GITHUB_ORG1: $GITHUB_ORG1"
