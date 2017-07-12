@@ -44,6 +44,7 @@ cd $HOME/code/github/$GITHUB_ORG1/support-shinobi-tools
 }
 
 loadBash_shinobi(){
+# From https://github.com/carlosrodlop/machine-setup/blob/master/profile/.bash_shinobi
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_shinobi /home/$USER_VM
 cat <<EOT >> ~/.bash_profile
 source ~/.bash_shinobi
