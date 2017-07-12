@@ -21,110 +21,32 @@ echo "IP_VM: $IP_VM"
 }
 
 setMyEnv(){
-mkdir code;mkdir code/github;mkdir code/github/$GITHUB_ORG1
-mkdir Support;mkdir Support/cases
-mkdir ~/.ssh
-mkdir ~/.m2
-echo $PASS_VM | sudo -S ln -s /opt opt
-echo "$USER_HOST needs to identified"
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_shinobi /home/$USER_VM
 cat <<EOT >> ~/.bash_profile
 source ~/.bash_shinobi
 EOT
-source /home/$USER_VM/.bash_profile
 }
 
 ## TOOLS
-
 setGitTool(){ 
-echo $PASS_VM | sudo -S apt-get -y install git
-echo "$USER_HOST needs to identified"
+mkdir code;mkdir code/github;mkdir code/github/$GITHUB_ORG1
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.ssh/myGitHubKey /home/$USER_VM/.ssh
 eval "$(ssh-agent -s)"
 ssh-add /home/$USER_VM/.ssh/myGitHubKey
 git config --global user.email $GITHUB_EMAIL
 git config --global user.name $GITHUB_NAME
-git --version
 }
 
-# Supported Java Version: https://support.cloudbees.com/hc/en-us/articles/203601234-CloudBees-Jenkins-Platform-Supported-Java-Versions
-setJava() {
-### Oracle
-# echo $PASS_VM | sudo -S apt-get -y install python-software-properties
-# echo $PASS_VM | sudo -S add-apt-repository ppa:webupd8team/java -y
-# echo $PASS_VM | sudo -S apt-get update
-# echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
-# echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
-# echo $PASS_VM | sudo -S apt-get -y install oracle-java8-installer
-### OpenJDK
-sudo add-apt-repository ppa:openjdk-r/ppa -y
-sudo apt-get update
-echo $PASS_VM | sudo -S apt-get install -y openjdk-8-jdk
-echo $PASS_VM | sudo -S apt-get -y install maven
-echo "$USER_HOST needs to identified"
+setMaven(){
+mkdir ~/.m2 
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.m2/settings.xml /home/$USER_VM/.m2
-mvn -v
-}
-
-setMaven(){ 
-#Binaries https://archive.apache.org/dist/maven/binaries/
-curl http://apache.uvigo.es/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz > apache-maven-3.5.0-bin.tar.gz
-tar xzvf apache-maven-3.5.0-bin.tar.gz
-mv apache-maven-3.5.0
-echo $PASS_VM |sudo mv apache-maven/* /opt
-}
-
-# https://github.com/moby/moby/issues/8791
-cgroupfs_mount() {
-  sudo -i
-  # see also https://github.com/tianon/cgroupfs-mount/blob/master/cgroupfs-mount
-  if grep -v '^#' /etc/fstab | grep -q cgroup \
-  || [ ! -e /proc/cgroups ] \
-  || [ ! -d /sys/fs/cgroup ]; then
-    return
-  fi
-  if ! mountpoint -q /sys/fs/cgroup; then
-    mount -t tmpfs -o uid=0,gid=0,mode=0755 cgroup /sys/fs/cgroup
-  fi
-  (
-    cd /sys/fs/cgroup
-    for sys in $(awk '!/^#/ { if ($4 == 1) print $1 }' /proc/cgroups); do
-      mkdir -p $sys
-      if ! mountpoint -q $sys; then
-        if ! mount -n -t cgroup -o $sys cgroup $sys; then
-          rmdir $sys || true
-        fi
-      fi
-    done
-  )
-  su $USER_VM
-}
-
-## Docker (run with sudo)
-setDocker() {
-# Binaries: http://docs.master.dockerproject.org/engine/installation/binaries/
-curl https://get.docker.com/builds/Linux/x86_64/docker-1.12.6.tgz > docker-1.12.6.tgz
-tar -xvzf docker-1.12.6.tgz
-echo $PASS_VM |sudo mv docker /opt
-sudo docker version
-# Packages Ubuntu/Debian: https://apt.dockerproject.org/repo/pool/main/d/docker-engine/
-# Source list (Main vs Experimental): https://stackoverflow.com/questions/38117469/installing-older-docker-engine-specifically-1-11-0dev/38119892#38119892
-# Postinstallation: https://docs.docker.com/engine/installation/linux/linux-postinstall/
 }
 
 ## Shinobi
 setShinobi() {
-echo "$USER_HOST needs to identified"
+mkdir Support;mkdir Support/cases
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.zendesk-cli.config /home/$USER_VM
 cd code/github/$GITHUB_ORG1
 git clone git@github.com:cloudbees/support-shinobi-tools.git
 ./code/github/$GITHUB_ORG1/support-shinobi-tools/install.sh
-}
-
-## ENV
-runDocker(){
-sudo -i
-cgroupfs_mount
-sudo su $USER_VM
-sudo dockerd &
 }
