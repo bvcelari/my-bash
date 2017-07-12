@@ -20,14 +20,6 @@ echo "IP_HOST: $IP_HOST"
 echo "IP_VM: $IP_VM"
 }
 
-setMyEnv(){
-scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_shinobi /home/$USER_VM
-cat <<EOT >> ~/.bash_profile
-source ~/.bash_shinobi
-EOT
-}
-
-## TOOLS
 setGitTool(){ 
 mkdir code;mkdir code/github;mkdir code/github/$GITHUB_ORG1
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.ssh/myGitHubKey /home/$USER_VM/.ssh
@@ -42,11 +34,19 @@ mkdir ~/.m2
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.m2/settings.xml /home/$USER_VM/.m2
 }
 
-## Shinobi
 setShinobi() {
-mkdir Support;mkdir Support/cases
+mkdir Support;mkdir Support/cases; mkdir Support/labs
+mkdir code;mkdir code/github;mkdir code/github/$GITHUB_ORG1
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.zendesk-cli.config /home/$USER_VM
 cd code/github/$GITHUB_ORG1
 git clone git@github.com:cloudbees/support-shinobi-tools.git
 ./code/github/$GITHUB_ORG1/support-shinobi-tools/install.sh
+}
+
+loadBash_shinobi(){
+scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.bash_shinobi /home/$USER_VM
+cat <<EOT >> ~/.bash_profile
+source ~/.bash_shinobi
+EOT
+source ~/.bash_profile
 }
