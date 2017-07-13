@@ -9,7 +9,7 @@ export USER_VM="vagrant"
 export PASS_VM="vagrant"
 export USER_HOST="carlosrodlop"
 export IP_HOST=192.168.1.119
-export IP_VM=192.168.1.146
+export IP_VM=192.168.1.147
 ####################
 echo "GITHUB_NAME: $GITHUB_NAME"
 echo "GITHUB_ORG1: $GITHUB_ORG1"
