@@ -1,3 +1,5 @@
 # machine-setup
 
-Tested with: https://app.vagrantup.com/dknoern/boxes/centos7-dev
+`profile` folder contains all configuration files for my bash
+
+Different branches for set up on different environment
