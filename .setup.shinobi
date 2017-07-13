@@ -21,6 +21,8 @@ echo "IP_HOST: $IP_HOST"
 echo "IP_VM: $IP_VM"
 }
 
+## TOOLS
+
 setGitTool(){ 
 echo ">>> setGitTool"
 scp $USER_HOST@$IP_HOST:/Users/$USER_HOST/.ssh/myGitHubKey /home/$USER_VM/.ssh
@@ -46,6 +48,8 @@ git clone git@github.com:cloudbees/support-shinobi-tools.git
 cd $HOME/code/github/$GITHUB_ORG1/support-shinobi-tools
 ./install.sh
 }
+
+## BASH
 
 loadBash_shinobi(){
 echo ">>> loadBash_shinobi"
