@@ -88,6 +88,18 @@ my-git-initRepo (){
 	git init && git add . && git commit -am "Initialization"
 }
 
+my-git-checkoutToRemoteBranch (){
+	git branch -a
+    local branch
+	while [[ $branch = "" ]]; do
+   		echo -n "Which branch you wish to checkout [ENTER]: (input example for 'remotes/origin/develop' type 'develop'" 
+		read branch
+	done
+	echo "Selected branch: $branch"
+	git checkout origin/${branch}
+	git checkout ${branch}
+}
+
 my-docker-login (){
 	docker login --username=$MY_USER
 }	
