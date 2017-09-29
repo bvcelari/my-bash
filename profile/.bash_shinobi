@@ -78,23 +78,57 @@ my-clean-cje(){
 
 my-up-oss(){
   local version=$OSS_LTS_LATEST
-  local jenkins_home=$LABS/jenkins-home-oss
   cd $jenkins_home
   if [ ! -z "$1" ];then
      version=$1
   fi
+  jenkins_home="${LABS}/jenkins-home-oss"
+  if [ -d "$jenkins_home" ]; then
+      echo "[INFO]: Found existing JENKINS_HOME in ${lab}"
+  else
+      echo "[INFO]: Creating new JENKINS_HOME as ${lab}"
+  fi
+  echo "[INFO]: Runing OSS version ${version}"
+  cd "${jenkins_home}"
 	JAVA_OPTS="$JAVA_OPTS_CBS -Dhudson.TcpSlaveAgentListener.hostName=oss.example.crl" \
-    DEBUG_PORT=8193 HTTP_PORT=8183 \
+    DEBUG_PORT=8194 HTTP_PORT=8184 \
     JENKINS_HOME=$jenkins_home HTTP_ADDRESS=0.0.0.0 cbsupport-jenkins oss $version
+}
+
+my-clean-oss(){
+   jenkins_home="${LABS}/jenkins-home-oss"
+   if [ -d "$jenkins_home" ]; then
+        rm -rf $jenkins_home
+        echo "[INFO]: $jenkins_home deleted"
+    else
+        echo "[INFO]: $jenkins_home does not exist"
+   fi
 }
 
 my-up-cjoc(){
   local version=$CJP_VERSION
-  local jenkins_home=$LABS/jenkins-home-cjoc
   if [ ! -z "$1" ];then
      version=$1
   fi
+  jenkins_home="${LABS}/jenkins-home-cjoc"
+  if [ -d "$jenkins_home" ]; then
+      echo "[INFO]: Found existing JENKINS_HOME in ${lab}"
+  else
+      echo "[INFO]: Creating new JENKINS_HOME as ${lab}"
+  fi
+  echo "[INFO]: Runing CJOC version ${version}"
+  cd "${jenkins_home}"
 	JAVA_OPTS="$JAVA_OPTS_CBS -Dhudson.TcpSlaveAgentListener.hostName=cjoc.example.crl" \
     DEBUG_PORT=9181 HTTP_PORT=9191 \
     JENKINS_HOME=$jenkins_home HTTP_ADDRESS=0.0.0.0 cbsupport-jenkins joc $version
+}
+
+my-clean-cjoc(){
+   jenkins_home="${LABS}/jenkins-home-cjoc"
+   if [ -d "$jenkins_home" ]; then
+        rm -rf $jenkins_home
+        echo "[INFO]: $jenkins_home deleted"
+    else
+        echo "[INFO]: $jenkins_home does not exist"
+   fi
 }
