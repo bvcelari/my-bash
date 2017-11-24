@@ -3,7 +3,7 @@
 ###################
 
 export MY_USER="carlosrodlop"
-# SCR
+# SCM
 export CODE="/code"
 export GITHUB="$CODE/github"
 export BITBUKET="$CODE/bitbucket"
@@ -19,9 +19,8 @@ export MACROS_HOME="$GITHUB/cloudbees/support-macros"
 export JENKINSFILES="$GITHUB/carlosrodlop_mock_org/jenkinsFiles-examples"
 export JENKINSFILES_D="$GITHUB/carlosrodlop_mock_org/jenkinsFilesD-examples"
 export DOCKERFILES="$GITHUB/carlosrodlop_mock_org/dockerFiles-examples"
-
-# CERTS
-export CERTS="/Users/$MY_USER/.ssh"
+export PROJECT="$TRAINING/CloudBees/bees-pse-project"
+export SUPPORT_CJE="$GITHUB/cloudbees/support-cluster-cje"
 
 # TOOLS
 source $HOME/.bash_shinobi ## Load shinobi config
@@ -31,17 +30,15 @@ export VM_MANAGE="/Applications/VirtualBox.app/Contents/MacOS"
 export ARTIFACTORY_HOME="$TOOLS/artifactory/artifactory-oss-5.2.0" # Local Repos for maven, grandle and ivy
 export OPSCORE_HOME="$TOOLS/opscore" # https://cloudbees.atlassian.net/wiki/display/OPS/OpsCore+-+Setup
 export TEXT_EDITOR="sublime"
-export DOCKER_ID_USER="$MY_USER"
 export DOCKER_HOME="/opt/docker"
-#### For mac
+export AWS_HOME="/Users/$MY_USER/.aws"
+export PSE_HOME="/opt/pse/pse_1.9.0"
+
 
 # CLOUDBEES SUPPORT
 export TRAINING="$CB_SUPPORT_HOME/training"
 export CASES="$CB_SUPPORT_HOME/cases"
 export JAVA_OPTS_CBS="-Djenkins.model.Jenkins.slaveAgentPort=$(($RANDOM%63000+2001)) -Djenkins.install.runSetupWizard=false -Djenkins.model.Jenkins.logStartupPerformance=true"
-### PSE 
-export PSE_HOME="/opt/pse/pse_1.9.0"
-export PROJECT="$TRAINING/CloudBees/bees-pse-project"
 
 # SYSTEM
 export PATH=$PATH:$MAVEN_HOME/bin:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec:$PSE_HOME/bin:$VM_MANAGE:$OPSCORE_HOME
@@ -58,7 +55,7 @@ export LC_ALL=en_US.UTF-8
 my-git-update-upstream (){
 	local branch2Merge=$1
 	if [ -z $branch2Merge ];then
-		echo "Please add branch2Merge as parameter"
+		echo "[my-INFO]:Please add branch2Merge as parameter"
 	else	
 		git checkout master ; git fetch upstream ; git merge upstream/$branch2Merge; git push origin $branch2Merge
 	fi
@@ -71,17 +68,36 @@ my-git-update-master (){
 my-git-simple-push (){
     local branch2Push=$1
 	if [ -z $branch2Push ];then
-		echo "Please add branch2Push as parameter"
+		echo "[my-INFO]:Please add branch2Push as parameter"
 	else	
 		git add . ; git commit -m  "update" ; git push origin $1
 	fi
 }
 
-my-git-wipeOutAllButMaster (){
-	#Remote
-	git branch | grep -v "master" | sed 's/^[ *]*//' | sed 's/^/git push origin :/' | bash
-	#Locally
-	git branch | grep -v "master" | sed 's/^[ *]*//' | sed 's/^/git branch -D /' | bash
+my-git-revertUncommitedChanges () {
+	# Revert changes to modified files.
+	git reset --hard
+	# Remove all untracked files and directories. (`-f` is `force`, `-d` is `remove directories`)
+	git clean -fd
+}
+
+my-git-wipeOutAllButMasterOR (){
+	local branch=$1
+	if [ -z $branch ];then
+		 git checkout master
+	     echo "[my-INFO]: Delete all branches after filtering for master"
+	     #Remote
+	     git branch | grep -v "master" | sed 's/^[ *]*//' | sed 's/^/git push origin :/' | bash
+		 #Locally
+		 git branch | grep -v "master" | sed 's/^[ *]*//' | sed 's/^/git branch -D /' | bash
+	else 
+		 git checkout $branch
+		 echo "[my-INFO]: Delete all branches after filtering for master and ${branch}"
+	     #Remote
+	     git branch | grep -v "master" | grep -v "${branch}" | sed 's/^[ *]*//' | sed 's/^/git push origin :/' | bash
+		 #Locally
+		 git branch | grep -v "master" | grep -v "${branch}" | sed 's/^[ *]*//' | sed 's/^/git branch -D /' | bash 	
+	fi
 }
 
 my-git-initRepo (){
@@ -92,10 +108,10 @@ my-git-checkoutToRemoteBranch (){
 	git branch -a
     local branch
 	while [[ $branch = "" ]]; do
-   		echo -n "Which branch you wish to checkout [ENTER]: (input example for 'remotes/origin/develop' type 'develop'" 
+   		echo -n "[my-INFO]:Branch name to checkout (input example for 'remotes/origin/develop' type 'develop') [ENTER]: " 
 		read branch
 	done
-	echo "Selected branch: $branch"
+	echo "[my-INFO]:Selected branch: $branch"
 	git checkout origin/${branch}
 	git checkout ${branch}
 }
@@ -108,7 +124,7 @@ my-open(){
 	local location=$1
 	local editor=$2
 	if [ -z $location ];then
-     echo "please, specify a location"
+     echo "[my-INFO]:please, specify a location"
 	elif [ $location = "notebook" ];then
 		$editor $MY_KB $MACROS_HOME $JENKINSFILES $JENKINSFILES_D $DOCKERFILES
 	elif [ $location = "kb" ];then
@@ -121,13 +137,13 @@ my-open(){
 		cbsupport-update
 	    intellij .
 	else
-		echo "Location not registered"
-	  echo "Available localtions: notebook, kb, shinobi"
+		echo "[my-ERROR]:Location not registered"
+	  	echo "Available localtions: notebook, kb, shinobi"
 	fi
 }
 
 my-up-artifactory(){
-	echo "\n\nRunning as default on 8081\n User: admin - Pass: password\n\n"
+	echo "\n\n [my-INFO]:Running as default on 8081\n User: admin - Pass: password\n\n"
 	command sh $ARTIFACTORY_HOME/bin/artifactory.sh 
 }
 
@@ -136,7 +152,7 @@ my-ssh-unicorn(){
 	local MACHINE=$1
 	local UNICORN_DOMAIN="unicorn.beescloud.com"
 	if [ -z $MACHINE ];then
-     echo "please, specify a machine to connect to"
+     echo "[my-INFO]:please, specify a machine to connect to"
 	else	
 		ssh $USER@$MACHINE.$UNICORN_DOMAIN -i $CERTS/unicorn-team.pem
 	fi	

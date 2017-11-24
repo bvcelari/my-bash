@@ -40,20 +40,20 @@ my-up-cje(){
        fi
        jenkins_home="${LABS}/jenkins-home-cje-${lab}"
        if [ -d "$jenkins_home" ]; then
-          echo "[INFO]: Found existing JENKINS_HOME in ${lab}"
+          echo "[my-INFO]: Found existing JENKINS_HOME in ${lab}"
        else
-          echo "[INFO]: Creating new JENKINS_HOME as ${lab}"
+          echo "[my-INFO]: Creating new JENKINS_HOME as ${lab}"
        fi
-       echo "[INFO]: Runing CJE ${lab} version ${version}"
+       echo "[my-INFO]: Runing CJE ${lab} version ${version}"
        cd "${jenkins_home}"
        JAVA_OPTS="$JAVA_OPTS_CBS -Dhudson.TcpSlaveAgentListener.hostName=cje${lab}.example.crl" \
        DEBUG_PORT=819${lab} HTTP_PORT=818${lab} \
        JENKINS_HOME=$jenkins_home HTTP_ADDRESS=0.0.0.0 cbsupport-jenkins je $version
       else
-        echo "[INFO]: Please enter a lab value between 1 and 3"
+        echo "[my-INFO]: Please enter a lab value between 1 and 3"
       fi
   else
-    echo "[INFO]: Please enter a lab value"
+    echo "[my-INFO]: Please enter a lab value"
   fi
 }
 
@@ -64,12 +64,12 @@ my-clean-cje(){
        jenkins_home="${LABS}/jenkins-home-cje-${lab}"
        if [ -d "$jenkins_home" ]; then
           rm -rf $jenkins_home
-          echo "[INFO]: $jenkins_home deleted"
+          echo "[my-INFO]: $jenkins_home deleted"
        else
-          echo "[INFO]: $jenkins_home does not exist"
+          echo "[my-INFO]: $jenkins_home does not exist"
        fi
       else
-        echo "[INFO]: Please enter a ${lab} value between 1 and 3"
+        echo "[my-INFO]: Please enter a ${lab} value between 1 and 3"
       fi
   else
     echo "[INFO]: Please enter a lab value"
@@ -84,11 +84,11 @@ my-up-oss(){
   fi
   jenkins_home="${LABS}/jenkins-home-oss"
   if [ -d "$jenkins_home" ]; then
-      echo "[INFO]: Found existing JENKINS_HOME in ${lab}"
+      echo "[my-INFO]: Found existing JENKINS_HOME in ${lab}"
   else
-      echo "[INFO]: Creating new JENKINS_HOME as ${lab}"
+      echo "[my-INFO]: Creating new JENKINS_HOME as ${lab}"
   fi
-  echo "[INFO]: Runing OSS version ${version}"
+  echo "[my-INFO]: Runing OSS version ${version}"
   cd "${jenkins_home}"
 	JAVA_OPTS="$JAVA_OPTS_CBS -Dhudson.TcpSlaveAgentListener.hostName=oss.example.crl" \
     DEBUG_PORT=8194 HTTP_PORT=8184 \
@@ -99,9 +99,9 @@ my-clean-oss(){
    jenkins_home="${LABS}/jenkins-home-oss"
    if [ -d "$jenkins_home" ]; then
         rm -rf $jenkins_home
-        echo "[INFO]: $jenkins_home deleted"
+        echo "[my-INFO]: $jenkins_home deleted"
     else
-        echo "[INFO]: $jenkins_home does not exist"
+        echo "[my-INFO]: $jenkins_home does not exist"
    fi
 }
 
@@ -112,11 +112,11 @@ my-up-cjoc(){
   fi
   jenkins_home="${LABS}/jenkins-home-cjoc"
   if [ -d "$jenkins_home" ]; then
-      echo "[INFO]: Found existing JENKINS_HOME in ${lab}"
+      echo "[my-INFO]: Found existing JENKINS_HOME in ${lab}"
   else
-      echo "[INFO]: Creating new JENKINS_HOME as ${lab}"
+      echo "[my-INFO]: Creating new JENKINS_HOME as ${lab}"
   fi
-  echo "[INFO]: Runing CJOC version ${version}"
+  echo "[my-INFO]: Runing CJOC version ${version}"
   cd "${jenkins_home}"
 	JAVA_OPTS="$JAVA_OPTS_CBS -Dhudson.TcpSlaveAgentListener.hostName=cjoc.example.crl" \
     DEBUG_PORT=9181 HTTP_PORT=9191 \
@@ -127,8 +127,8 @@ my-clean-cjoc(){
    jenkins_home="${LABS}/jenkins-home-cjoc"
    if [ -d "$jenkins_home" ]; then
         rm -rf $jenkins_home
-        echo "[INFO]: $jenkins_home deleted"
+        echo "[my-INFO]: $jenkins_home deleted"
     else
-        echo "[INFO]: $jenkins_home does not exist"
+        echo "[my-INFO]: $jenkins_home does not exist"
    fi
 }
