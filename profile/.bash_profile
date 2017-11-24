@@ -2,26 +2,25 @@
 # VARIABLES 
 ###################
 
-# SCR
+export MY_USER="carlosrodlop"
+# SCM
 export CODE="/code"
 export GITHUB="$CODE/github"
 export BITBUKET="$CODE/bitbucket"
 export RIOXSVN="$CODE/riouxsvn"
-#### Repos
+#### Repos-lo	
 ##### CloudBees Support
-export KB_HOME="$GITHUB/cloudbees/support-kb-articles"
-export MACROS_HOME="$GITHUB/cloudbees/support-macros"
+export CB_KB="$GITHUB/cloudbees/support-kb-articles"
 ##### Personal Notebooks
-export OPS_NOTES="$GITHUB/carlosrodlop/ops-bucket"
-export DEVOPS_NOTES="$GITHUB/carlosrodlop/devops-bucket"
-export MY_PROFILES="$GITHUB/carlosrodlop/machine-setup/profile"
+export MY_KB="$GITHUB/$MY_USER/my-kb"
+export MY_PROFILES="$GITHUB/$MY_USER/machine-setup/profile"
+export MACROS_HOME="$GITHUB/cloudbees/support-macros"
 ##### Testing
 export JENKINSFILES="$GITHUB/carlosrodlop_mock_org/jenkinsFiles-examples"
 export JENKINSFILES_D="$GITHUB/carlosrodlop_mock_org/jenkinsFilesD-examples"
 export DOCKERFILES="$GITHUB/carlosrodlop_mock_org/dockerFiles-examples"
-
-# CERTS
-export CERTS="/Users/carlosrodlop/.ssh"
+export PROJECT="$TRAINING/CloudBees/bees-pse-project"
+export SUPPORT_CJE="$GITHUB/cloudbees/support-cluster-cje"
 
 # TOOLS
 source $HOME/.bash_shinobi ## Load shinobi config
@@ -30,17 +29,16 @@ export MAVEN_HOME="$TOOLS/maven/apache-maven-3.3.9"
 export VM_MANAGE="/Applications/VirtualBox.app/Contents/MacOS"
 export ARTIFACTORY_HOME="$TOOLS/artifactory/artifactory-oss-5.2.0" # Local Repos for maven, grandle and ivy
 export OPSCORE_HOME="$TOOLS/opscore" # https://cloudbees.atlassian.net/wiki/display/OPS/OpsCore+-+Setup
-export TEXT_EDITOR="atom"
-export DOCKER_ID_USER="carlosrodlop"
-#### For mac
+export TEXT_EDITOR="sublime"
+export DOCKER_HOME="/opt/docker"
+export AWS_HOME="/Users/$MY_USER/.aws"
+export PSE_HOME="/opt/pse/pse_1.9.0"
+
 
 # CLOUDBEES SUPPORT
 export TRAINING="$CB_SUPPORT_HOME/training"
 export CASES="$CB_SUPPORT_HOME/cases"
 export JAVA_OPTS_CBS="-Djenkins.model.Jenkins.slaveAgentPort=$(($RANDOM%63000+2001)) -Djenkins.install.runSetupWizard=false -Djenkins.model.Jenkins.logStartupPerformance=true"
-### PSE 
-export PSE_HOME="/opt/pse/pse_1.6.3"
-export PROJECT="$TRAINING/CloudBees/bees-pse-project"
 
 # SYSTEM
 export PATH=$PATH:$MAVEN_HOME/bin:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec:$PSE_HOME/bin:$VM_MANAGE:$OPSCORE_HOME
@@ -55,51 +53,97 @@ export LC_ALL=en_US.UTF-8
 ###################
 
 my-git-update-upstream (){
-	git checkout master ; git fetch upstream ; git merge upstream/master; git push origin master
+	local branch2Merge=$1
+	if [ -z $branch2Merge ];then
+		echo "[my-INFO]:Please add branch2Merge as parameter"
+	else	
+		git checkout master ; git fetch upstream ; git merge upstream/$branch2Merge; git push origin $branch2Merge
+	fi
 }
 
 my-git-update-master (){
 	git checkout master ; git pull origin master
 }
 
-my-git-push (){
-	git add . ; git commit -m  "update" ; git push origin $1
+my-git-simple-push (){
+    local branch2Push=$1
+	if [ -z $branch2Push ];then
+		echo "[my-INFO]:Please add branch2Push as parameter"
+	else	
+		git add . ; git commit -m  "update" ; git push origin $1
+	fi
 }
 
-my-git-wipeOutAllButMaster (){
-	#Remote
-	git branch | grep -v "master" | sed 's/^[ *]*//' | sed 's/^/git push origin :/' | bash
-	#Locally
-	git branch | grep -v "master" | sed 's/^[ *]*//' | sed 's/^/git branch -D /' | bash
+my-git-revertUncommitedChanges () {
+	# Revert changes to modified files.
+	git reset --hard
+	# Remove all untracked files and directories. (`-f` is `force`, `-d` is `remove directories`)
+	git clean -fd
+}
+
+my-git-wipeOutAllButMasterOR (){
+	local branch=$1
+	if [ -z $branch ];then
+		 git checkout master
+	     echo "[my-INFO]: Delete all branches after filtering for master"
+	     #Remote
+	     git branch | grep -v "master" | sed 's/^[ *]*//' | sed 's/^/git push origin :/' | bash
+		 #Locally
+		 git branch | grep -v "master" | sed 's/^[ *]*//' | sed 's/^/git branch -D /' | bash
+	else 
+		 git checkout $branch
+		 echo "[my-INFO]: Delete all branches after filtering for master and ${branch}"
+	     #Remote
+	     git branch | grep -v "master" | grep -v "${branch}" | sed 's/^[ *]*//' | sed 's/^/git push origin :/' | bash
+		 #Locally
+		 git branch | grep -v "master" | grep -v "${branch}" | sed 's/^[ *]*//' | sed 's/^/git branch -D /' | bash 	
+	fi
+}
+
+my-git-initRepo (){
+	git init && git add . && git commit -am "Initialization"
+}
+
+my-git-checkoutToRemoteBranch (){
+	git branch -a
+    local branch
+	while [[ $branch = "" ]]; do
+   		echo -n "[my-INFO]:Branch name to checkout (input example for 'remotes/origin/develop' type 'develop') [ENTER]: " 
+		read branch
+	done
+	echo "[my-INFO]:Selected branch: $branch"
+	git checkout origin/${branch}
+	git checkout ${branch}
 }
 
 my-docker-login (){
-	docker login --username=carlosrodlop
+	docker login --username=$MY_USER
 }	
 
 my-open(){
-	location=$1
+	local location=$1
+	local editor=$2
 	if [ -z $location ];then
-     echo "please, specify a location"
+     echo "[my-INFO]:please, specify a location"
 	elif [ $location = "notebook" ];then
-		$TEXT_EDITOR $OPS_NOTES $DEVOPS_NOTES $MACROS_HOME $JENKINSFILES $JENKINSFILES_D $DOCKERFILES
+		$editor $MY_KB $MACROS_HOME $JENKINSFILES $JENKINSFILES_D $DOCKERFILES
 	elif [ $location = "kb" ];then
-		cd $KB_HOME
-	  $TEXT_EDITOR .
+		cd $CB_KB
+	    $editor .
 		git branch
 	elif [ $location = "shinobi" ];then
 		cd $SHINOBI_HOME
 		git checkout master
 		cbsupport-update
-	  intellij .
+	    intellij .
 	else
-		echo "Location not registered"
-	  echo "Available localtions: notebook, kb, shinobi"
+		echo "[my-ERROR]:Location not registered"
+	  	echo "Available localtions: notebook, kb, shinobi"
 	fi
 }
 
 my-up-artifactory(){
-	echo "\n\nRunning as default on 8081\n User: admin - Pass: password\n\n"
+	echo "\n\n [my-INFO]:Running as default on 8081\n User: admin - Pass: password\n\n"
 	command sh $ARTIFACTORY_HOME/bin/artifactory.sh 
 }
 
@@ -108,7 +152,7 @@ my-ssh-unicorn(){
 	local MACHINE=$1
 	local UNICORN_DOMAIN="unicorn.beescloud.com"
 	if [ -z $MACHINE ];then
-     echo "please, specify a machine to connect to"
+     echo "[my-INFO]:please, specify a machine to connect to"
 	else	
 		ssh $USER@$MACHINE.$UNICORN_DOMAIN -i $CERTS/unicorn-team.pem
 	fi	
@@ -119,6 +163,11 @@ my-ngrock-http-tunel(){
 	cd /opt/ngrok
 	./ngrok http $HTTP_PORT
 } 
+
+my-intellij(){
+	local path=$1
+	open -a IntelliJ\ IDEA\ CE $path
+}	
 
 # SYSTEM
 
@@ -132,7 +181,7 @@ my-set-java(){
 my-loader-sublime(){
   #To add sublime create symbolic link
   if [ ! -L /usr/local/bin/sublime ]; then
-      ln -s /Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl /usr/local/bin/sublime
+  	  ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/sublime
   fi
 }
 
@@ -146,9 +195,9 @@ my-open-profile (){
 
 my-loader-profile (){
 	### Load of files in the following order
-	cp $HOME/.zshrc $MY_PROFILES
-	cp $HOME/.bash_profile $MY_PROFILES
-	cp $HOME/.bash_shinobi $MY_PROFILES
+	cp $HOME/.zshrc $MY_PROFILES/
+	cp $HOME/.bash_profile $MY_PROFILES/
+	cp $HOME/.bash_shinobi $MY_PROFILES/
 	source $HOME/.zshrc
 }
 
@@ -161,51 +210,6 @@ my-set-alias(){
   alias java8="export JAVA_HOME=$JAVA_8_HOME"
   alias java7="export JAVA_HOME=$JAVA_7_HOME"
 }
-
-# my-intellij(){
-# 	# check for where the latest version of IDEA is installed
-# local IDEA=`ls -1d /Applications/IntelliJ\ * | tail -n1`
-# local wd=`pwd`
-# 
-# # were we given a directory?
-# if [ -d "$1" ]; then
-# #  echo "checking for things in the working dir given"
-#   wd=`ls -1d "$1" | head -n1`
-# fi
-# 
-# # were we given a file?
-# if [ -f "$1" ]; then
-# #  echo "opening '$1'"
-#   open -a "$IDEA" "$1"
-# else
-#     # let's check for stuff in our working directory.
-#     pushd $wd > /dev/null
-# 
-#     # does our working dir have an .idea directory?
-#     if [ -d ".idea" ]; then
-# #      echo "opening via the .idea dir"
-#       open -a "$IDEA" .
-# 
-#     # is there an IDEA project file?
-#     elif [ -f *.ipr ]; then
-# #      echo "opening via the project file"
-#       open -a "$IDEA" `ls -1d *.ipr | head -n1`
-# 
-#     # Is there a pom.xml?
-#     elif [ -f pom.xml ]; then
-# #      echo "importing from pom"
-#       open -a "$IDEA" "pom.xml"
-# 
-#     # can't do anything smart; just open IDEA
-#     else
-# #      echo 'cbf'
-#       open "$IDEA"
-#     fi
-# 
-#     popd > /dev/null
-# fi
-# }
-
 
 
 ##################
