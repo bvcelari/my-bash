@@ -32,7 +32,7 @@ export OPSCORE_HOME="$TOOLS/opscore" # https://cloudbees.atlassian.net/wiki/dis
 export TEXT_EDITOR="sublime"
 export DOCKER_HOME="/opt/docker"
 export AWS_HOME="/Users/$MY_USER/.aws"
-export PSE_HOME="/opt/pse/pse_1.9.0"
+export PSE_HOME="/opt/pse/pse_1.11.0"
 
 
 # CLOUDBEES SUPPORT
@@ -53,11 +53,12 @@ export LC_ALL=en_US.UTF-8
 ###################
 
 my-git-update-upstream (){
-	local branch2Merge=$1
-	if [ -z $branch2Merge ];then
-		echo "[my-INFO]:Please add branch2Merge as parameter"
+	local remoteBranch2Retrive=$1
+	local localBranch2Merge=$2
+	if [ -z $localBranch2Merge ] || [ -z $remoteBranch2Retrive ];then
+		echo "[my-INFO]:It needs to parameters 1º remoteBranch2Retrive and 2º localBranch2Merge"
 	else	
-		git checkout master ; git fetch upstream ; git merge upstream/$branch2Merge; git push origin $branch2Merge
+		git fetch upstream ; git merge upstream/$remoteBranch2Retrive; git push origin $localBranch2Merge
 	fi
 }
 
@@ -70,7 +71,7 @@ my-git-simple-push (){
 	if [ -z $branch2Push ];then
 		echo "[my-INFO]:Please add branch2Push as parameter"
 	else	
-		git add . ; git commit -m  "update" ; git push origin $1
+		git add . ; git commit -m  "update" ; git push origin $branch2Push
 	fi
 }
 
@@ -79,6 +80,16 @@ my-git-revertUncommitedChanges () {
 	git reset --hard
 	# Remove all untracked files and directories. (`-f` is `force`, `-d` is `remove directories`)
 	git clean -fd
+}
+
+my-git-revertCommitsOnPR () {
+	local branchName=$1
+	local commitID=$2
+	if [ -z $branch2Push ] && [ -z $branch2Push ];then
+		echo "[my-WARN]: branchName OR commitID is missing. Please, insert 2 parameters" 
+	else
+       git checkout $branchName; git revert $commitID; git push origin $branchName
+    fi
 }
 
 my-git-wipeOutAllButMasterOR (){
@@ -97,6 +108,18 @@ my-git-wipeOutAllButMasterOR (){
 	     git branch | grep -v "master" | grep -v "${branch}" | sed 's/^[ *]*//' | sed 's/^/git push origin :/' | bash
 		 #Locally
 		 git branch | grep -v "master" | grep -v "${branch}" | sed 's/^[ *]*//' | sed 's/^/git branch -D /' | bash 	
+	fi
+}
+
+my-git-removeBranch (){
+	local branch=$1
+	if [ -z $branch ];then
+		 echo "[my-WARN]: Please insert branch to Delete"
+	else 
+	     #Remote
+	     git push origin --delete $branch
+		 #Locally
+		 git branch -D $branch
 	fi
 }
 
@@ -194,11 +217,15 @@ my-open-profile (){
 }
 
 my-loader-profile (){
-	### Load of files in the following order
-	cp $HOME/.zshrc $MY_PROFILES/
-	cp $HOME/.bash_profile $MY_PROFILES/
-	cp $HOME/.bash_shinobi $MY_PROFILES/
-	source $HOME/.zshrc
+	local profileBranch="$(cd $GITHUB/$MY_USER/machine-setup; git branch | grep \* | cut -d ' ' -f2)"
+	if [ "$profileBranch" = "master" ]; then 
+		cp $HOME/.zshrc $MY_PROFILES/
+		cp $HOME/.bash_profile $MY_PROFILES/
+		cp $HOME/.bash_shinobi $MY_PROFILES/
+		source $HOME/.zshrc
+	else
+    	echo "[my-ERROR]: Autosaving profile changes cancelled. It only works when branch = master" 
+	fi;
 }
 
 my-host-edit (){
