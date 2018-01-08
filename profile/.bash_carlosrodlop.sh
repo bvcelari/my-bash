@@ -176,7 +176,7 @@ my-ssh-unicorn(){
 	if [ -z $MACHINE ];then
      echo "[my-INFO]:please, specify a machine to connect to"
 	else	
-		ssh $USER@$MACHINE.$UNICORN_DOMAIN -i $CERTS/unicorn-team.pem
+		ssh $USER@$MACHINE.$UNICORN_DOMAIN -i /Users/carlosrodlop/.aws/unicorn-team.pem
 	fi	
 }
 
