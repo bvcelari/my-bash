@@ -23,7 +23,6 @@ export PROJECT="$TRAINING/CloudBees/bees-pse-project"
 export SUPPORT_CJE="$GITHUB/cloudbees/support-cluster-cje"
 
 # TOOLS
-source $HOME/.bash_shinobi ## Load shinobi config
 export TOOLS="/opt"
 export MAVEN_HOME="$TOOLS/maven/apache-maven-3.3.9"
 export VM_MANAGE="/Applications/VirtualBox.app/Contents/MacOS"
@@ -58,7 +57,9 @@ my-git-update-upstream (){
 	if [ -z $localBranch2Merge ] || [ -z $remoteBranch2Retrive ];then
 		echo "[my-INFO]:It needs to parameters 1º remoteBranch2Retrive and 2º localBranch2Merge"
 	else	
-		git fetch upstream ; git merge upstream/$remoteBranch2Retrive; git push origin $localBranch2Merge
+		git fetch upstream
+		git merge upstream/$remoteBranch2Retrive
+		git push origin $localBranch2Merge
 	fi
 }
 
@@ -177,7 +178,7 @@ my-ssh-unicorn(){
 	if [ -z $MACHINE ];then
      echo "[my-INFO]:please, specify a machine to connect to"
 	else	
-		ssh $USER@$MACHINE.$UNICORN_DOMAIN -i $CERTS/unicorn-team.pem
+		ssh $USER@$MACHINE.$UNICORN_DOMAIN -i /Users/carlosrodlop/.aws/unicorn-team.pem
 	fi	
 }
 
@@ -213,15 +214,15 @@ my-open-commander () {
 }
 
 my-open-profile (){
-	$TEXT_EDITOR $HOME/.zshrc $HOME/.bash_profile $HOME/.bash_shinobi
+	$TEXT_EDITOR $ZSH
 }
 
 my-loader-profile (){
 	local profileBranch="$(cd $GITHUB/$MY_USER/machine-setup; git branch | grep \* | cut -d ' ' -f2)"
 	if [ "$profileBranch" = "master" ]; then 
 		cp $HOME/.zshrc $MY_PROFILES/
-		cp $HOME/.bash_profile $MY_PROFILES/
-		cp $HOME/.bash_shinobi $MY_PROFILES/
+		cp $ZSH/custom/.bash_carlosrodlop.sh $MY_PROFILES/
+		cp $ZSH/custom/.bash_shinobi.sh $MY_PROFILES/
 		source $HOME/.zshrc
 	else
     	echo "[my-ERROR]: Autosaving profile changes cancelled. It only works when branch = master" 
