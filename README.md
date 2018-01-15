@@ -1,5 +1,3 @@
-# machine-setup
+# my-commands
 
-`profile` folder contains all configuration files for my bash in MacOSX
-
-Different branches for set up on different environment
+My customization of [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
