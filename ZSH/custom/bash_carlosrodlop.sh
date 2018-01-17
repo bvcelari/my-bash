@@ -10,7 +10,7 @@ export BITBUKET="$CODE/bitbucket"
 export RIOXSVN="$CODE/riouxsvn"
 #### Repos-lo	
 ##### CloudBees Support
-export CB_KB="$GITHUB/cloudbees/support-kb-articles"
+export CB_KB="$GITHUB/$MY_USER/support-kb-articles"
 ##### Personal Notebooks
 export MY_KB="$GITHUB/$MY_USER/my-kb"
 export MY_PROFILES="$GITHUB/$MY_USER/machine-setup"
@@ -152,26 +152,8 @@ my-docker-login (){
 	docker login --username=$MY_USER
 }	
 
-my-open(){
-	local location=$1
-	local editor=$2
-	if [ -z $location ];then
-     echo "[my-INFO]:please, specify a location"
-	elif [ $location = "notebook" ];then
-		$editor $MY_KB $MACROS_HOME $JENKINSFILES $JENKINSFILES_D $DOCKERFILES
-	elif [ $location = "kb" ];then
-		cd $CB_KB
-	    $editor .
-		git branch
-	elif [ $location = "shinobi" ];then
-		cd $SHINOBI_HOME
-		git checkout master
-		cbsupport-update
-	    intellij .
-	else
-		echo "[my-ERROR]:Location not registered"
-	  	echo "Available localtions: notebook, kb, shinobi"
-	fi
+my-open-notebook(){
+	atom $MY_KB $MACROS_HOME $JENKINSFILES $JENKINSFILES_D $DOCKERFILES $CB_KB
 }
 
 my-up-artifactory(){
@@ -226,12 +208,13 @@ my-open-profile (){
 }
 
 my-loader-profile (){
-	local profileBranch="$(cd $GITHUB/$MY_USER/machine-setup; git branch | grep \* | cut -d ' ' -f2)"
+	local profileBranch="$(cd $MY_PROFILES; git branch | grep \* | cut -d ' ' -f2)"
 	if [ "$profileBranch" = "master" ]; then 
 		 cp $HOME/.zshrc $MY_PROFILES/
 		 cp $ZSH_CUSTOM/bash_carlosrodlop.sh $MY_PROFILES/ZSH/custom/
 		 cp $ZSH_CUSTOM/bash_shinobi.sh $MY_PROFILES/ZSH/custom/
 		 source $HOME/.zshrc
+		 cd $MY_PROFILES
 		 my-git-simple-push master
 	else
     	echo "[my-ERROR]: Autosaving profile changes cancelled. It only works when branch = master" 
