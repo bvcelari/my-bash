@@ -13,7 +13,7 @@ export RIOXSVN="$CODE/riouxsvn"
 export CB_KB="$GITHUB/cloudbees/support-kb-articles"
 ##### Personal Notebooks
 export MY_KB="$GITHUB/$MY_USER/my-kb"
-export MY_PROFILES="$GITHUB/$MY_USER/machine-setup/profile"
+export MY_PROFILES="$GITHUB/$MY_USER/machine-setup"
 export MACROS_HOME="$GITHUB/cloudbees/support-macros"
 ##### Testing
 export JENKINSFILES="$GITHUB/carlosrodlop_mock_org/jenkinsFiles-examples"
@@ -31,7 +31,7 @@ export OPSCORE_HOME="$TOOLS/opscore" # https://cloudbees.atlassian.net/wiki/dis
 export TEXT_EDITOR="sublime"
 export DOCKER_HOME="/opt/docker"
 export AWS_HOME="/Users/$MY_USER/.aws"
-export PSE_HOME="/opt/pse/pse_1.11.0"
+export PSE_HOME="/opt/pse/pse_1.11.1"
 
 
 # CLOUDBEES SUPPORT
@@ -51,15 +51,23 @@ export LC_ALL=en_US.UTF-8
 # FUNCTIONS
 ###################
 
-my-git-update-upstream (){
+my-git-merge-upstream (){
 	local remoteBranch2Retrive=$1
 	local localBranch2Merge=$2
 	if [ -z $localBranch2Merge ] || [ -z $remoteBranch2Retrive ];then
 		echo "[my-INFO]:It needs to parameters 1º remoteBranch2Retrive and 2º localBranch2Merge"
 	else	
-		git fetch upstream
-		git merge upstream/$remoteBranch2Retrive
-		git push origin $localBranch2Merge
+		git fetch upstream; git merge upstream/$remoteBranch2Retrive; git push origin $localBranch2Merge
+	fi
+}
+
+my-git-rebase-upstream (){
+	local remoteBranch2Retrive=$1
+	local localBranch2Merge=$2
+	if [ -z $localBranch2Merge ] || [ -z $remoteBranch2Retrive ];then
+		echo "[my-INFO]:It needs to parameters 1º remoteBranch2Retrive and 2º localBranch2Merge"
+	else	
+		git fetch upstream; git rebase upstream/$remoteBranch2Retrive; git push origin $localBranch2Merge
 	fi
 }
 
@@ -220,10 +228,11 @@ my-open-profile (){
 my-loader-profile (){
 	local profileBranch="$(cd $GITHUB/$MY_USER/machine-setup; git branch | grep \* | cut -d ' ' -f2)"
 	if [ "$profileBranch" = "master" ]; then 
-		cp $HOME/.zshrc $MY_PROFILES/
-		cp $ZSH/custom/.bash_carlosrodlop.sh $MY_PROFILES/
-		cp $ZSH/custom/.bash_shinobi.sh $MY_PROFILES/
-		source $HOME/.zshrc
+		 cp $HOME/.zshrc $MY_PROFILES/
+		 cp $ZSH_CUSTOM/bash_carlosrodlop.sh $MY_PROFILES/ZSH/custom/
+		 cp $ZSH_CUSTOM/bash_shinobi.sh $MY_PROFILES/ZSH/custom/
+		 source $HOME/.zshrc
+		 my-git-simple-push master
 	else
     	echo "[my-ERROR]: Autosaving profile changes cancelled. It only works when branch = master" 
 	fi;
