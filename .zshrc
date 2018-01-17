@@ -57,8 +57,8 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-source $ZSH/custom/.bash_carlosrodlop.sh
-source $ZSH/custom/.bash_shinobi.sh
+source $ZSH_CUSTOM/bash_carlosrodlop.sh
+source $ZSH_CUSTOM/bash_shinobi.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
