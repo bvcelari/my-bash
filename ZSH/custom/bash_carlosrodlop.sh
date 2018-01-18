@@ -51,24 +51,10 @@ export LC_ALL=en_US.UTF-8
 # FUNCTIONS
 ###################
 
-my-git-merge-upstream (){
-	local remoteBranch2Retrive=$1
-	local localBranch2Merge=$2
-	if [ -z $localBranch2Merge ] || [ -z $remoteBranch2Retrive ];then
-		echo "[my-INFO]:It needs to parameters 1º remoteBranch2Retrive and 2º localBranch2Merge"
-	else	
-		git fetch upstream; git merge upstream/$remoteBranch2Retrive; git push origin $localBranch2Merge
-	fi
-}
+## Git
 
-my-git-rebase-upstream (){
-	local remoteBranch2Retrive=$1
-	local localBranch2Merge=$2
-	if [ -z $localBranch2Merge ] || [ -z $remoteBranch2Retrive ];then
-		echo "[my-INFO]:It needs to parameters 1º remoteBranch2Retrive and 2º localBranch2Merge"
-	else	
-		git fetch upstream; git rebase upstream/$remoteBranch2Retrive; git push origin $localBranch2Merge
-	fi
+my-git-update-fork (){
+	git fetch upstream; git checkout master; git rebase upstream/master; git push -f origin master
 }
 
 my-git-update-master (){
@@ -156,6 +142,12 @@ my-open-notebook(){
 	atom $MY_KB $MACROS_HOME $JENKINSFILES $JENKINSFILES_D $DOCKERFILES $CB_KB
 }
 
+my-open-supportCjeCluster(){
+	cd $GITHUB/cloudbees/support-cluster-cje
+	my-git-revertUncommitedChanges
+	git pull origin master
+}
+
 my-up-artifactory(){
 	echo "\n\n [my-INFO]:Running as default on 8081\n User: admin - Pass: password\n\n"
 	command sh $ARTIFACTORY_HOME/bin/artifactory.sh 
@@ -197,10 +189,6 @@ my-loader-sublime(){
   if [ ! -L /usr/local/bin/sublime ]; then
   	  ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/sublime
   fi
-}
-
-my-open-commander () {
-	open -a "Commander One"
 }
 
 my-open-profile (){
