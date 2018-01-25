@@ -18,6 +18,7 @@ export MACROS_HOME="$GITHUB/cloudbees/support-macros"
 ##### Testing
 export JENKINSFILES="$GITHUB/carlosrodlop_mock_org/jenkinsFiles-examples"
 export JENKINSFILES_D="$GITHUB/carlosrodlop_mock_org/jenkinsFilesD-examples"
+export SHARED_LIB="$GITHUB/carlosrodlop_mock_org/workflowLibs"
 export DOCKERFILES="$GITHUB/carlosrodlop_mock_org/dockerFiles-examples"
 export PROJECT="$TRAINING/CloudBees/bees-pse-project"
 export SUPPORT_CJE="$GITHUB/cloudbees/support-cluster-cje"
@@ -139,7 +140,7 @@ my-docker-login (){
 }	
 
 my-open-notebook(){
-	atom $MY_KB $MACROS_HOME $JENKINSFILES $JENKINSFILES_D $DOCKERFILES $CB_KB
+	atom $JENKINSFILES $JENKINSFILES_D $DOCKERFILES $SHARED_LIB $CB_KB $MY_KB $MACROS_HOME 
 }
 
 my-open-supportCjeCluster(){
