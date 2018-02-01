@@ -147,6 +147,7 @@ my-open-supportCjeCluster(){
 	cd $GITHUB/cloudbees/support-cluster-cje
 	my-git-revertUncommitedChanges
 	git pull origin master
+	cje unlock-project --force
 }
 
 my-up-artifactory(){
