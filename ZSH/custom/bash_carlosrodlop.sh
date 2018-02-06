@@ -32,7 +32,7 @@ export OPSCORE_HOME="$TOOLS/opscore" # https://cloudbees.atlassian.net/wiki/dis
 export TEXT_EDITOR="sublime"
 export DOCKER_HOME="/opt/docker"
 export AWS_HOME="/Users/$MY_USER/.aws"
-export PSE_HOME="/opt/pse/pse_1.11.1"
+export PSE_HOME="/opt/pse/pse_1.11.2"
 
 
 # CLOUDBEES SUPPORT
