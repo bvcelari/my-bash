@@ -58,9 +58,6 @@ my-git-update-fork (){
 	git fetch upstream; git checkout master; git rebase upstream/master; git push -f origin master
 }
 
-my-git-update-master (){
-	git checkout master ; git pull origin master
-}
 
 my-git-simple-push (){
     local branch2Push=$1
@@ -138,6 +135,17 @@ my-git-checkoutToRemoteBranch (){
 	echo "[my-INFO]:Selected branch: $branch"
 	git checkout origin/${branch}
 	git checkout ${branch}
+}
+
+
+my-git-newBranch(){
+	local newBranch=$1
+	if [ -z $branch2Push ];then
+		echo "[my-INFO]:Please add the name of the new branch to create"
+	else	
+		my-git-update-fork
+		git checkout -b $newBranch
+	fi
 }
 
 my-docker-login (){
