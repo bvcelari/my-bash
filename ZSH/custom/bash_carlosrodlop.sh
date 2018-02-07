@@ -107,16 +107,17 @@ my-git-wipeOutAllButMasterOR (){
 	fi
 }
 
-my-git-removeBranch (){
-	local branch=$1
-	if [ -z $branch ];then
-		 echo "[my-WARN]: Please insert branch to Delete"
-	else 
+my-git-removeArrayBranch (){
+	local branchArry=("$@")
+	local branchArryLen=${#branchArry[@]}
+	#if [ -z $branch ];then
+		 echo "[my-WARN]: ${branchArryLen}"
+	#else 
 	     #Remote
-	     git push origin --delete $branch
+	     #git push origin --delete $branch
 		 #Locally
-		 git branch -D $branch
-	fi
+		 #git branch -D $branch
+	#fi
 }
 
 my-git-initRepo (){
