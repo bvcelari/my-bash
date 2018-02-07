@@ -142,6 +142,7 @@ my-open-supportCjeWorkspace(){
 
 my-new-supportCJEWorkspace(){
   rm -rf $SUPPORT_CJE
+  cd $GITHUB/cloudbees
   git clone git@github.com:cloudbees/support-cluster-cje.git
   cd $SUPPORT_CJE
 }
