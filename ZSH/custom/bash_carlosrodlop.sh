@@ -107,6 +107,7 @@ my-git-wipeOutAllButMasterOR (){
 	fi
 }
 
+# Example: array=("ZD-57430-B" "ZD-57430-C"); my-git-removeArrayBranch "${array[@]}"
 my-git-removeArrayBranch (){
     arr=("$@")
     arrL=("${#arr[@]}")
