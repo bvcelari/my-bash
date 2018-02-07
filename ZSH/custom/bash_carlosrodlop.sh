@@ -109,6 +109,7 @@ my-git-wipeOutAllButMasterOR (){
 
 my-git-removeArrayBranch (){
     arr=("$@")
+    arrL=("#$@")
    	for i in "${arr[@]}";
       do
           echo "$i"
@@ -116,7 +117,7 @@ my-git-removeArrayBranch (){
 	# local branchArry=("$@")
 	#local branchArryLen="${#branchArry[@]}"
 	#if [ -z $branch ];then
-		 echo "[my-WARN]: ${branchArryLen}"
+		 echo "[my-WARN]: ${arrL}"
 	#else 
 	     #Remote
 	     #git push origin --delete $branch
