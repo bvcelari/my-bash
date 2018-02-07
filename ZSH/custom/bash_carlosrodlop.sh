@@ -109,7 +109,7 @@ my-git-wipeOutAllButMasterOR (){
 
 my-git-removeArrayBranch (){
     arr=("$@")
-    arrL=$(#arr[@])
+    arrL=$("${#arr[@]}")
    	for i in "${arr[@]}";
       do
           echo "$i"
