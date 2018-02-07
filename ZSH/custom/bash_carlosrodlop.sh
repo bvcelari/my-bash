@@ -140,7 +140,7 @@ my-git-checkoutToRemoteBranch (){
 
 my-git-newBranch(){
 	local newBranch=$1
-	if [ -z $branch2Push ];then
+	if [ -z $newBranch ];then
 		echo "[my-INFO]:Please add the name of the new branch to create"
 	else	
 		my-git-update-fork
