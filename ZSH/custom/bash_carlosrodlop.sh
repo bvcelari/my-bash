@@ -108,8 +108,13 @@ my-git-wipeOutAllButMasterOR (){
 }
 
 my-git-removeArrayBranch (){
-	local branchArry=("$@")
-	local branchArryLen="${#branchArry[@]}"
+    arr=("$@")
+   	for i in "${arr[@]}";
+      do
+          echo "$i"
+      done
+	# local branchArry=("$@")
+	#local branchArryLen="${#branchArry[@]}"
 	#if [ -z $branch ];then
 		 echo "[my-WARN]: ${branchArryLen}"
 	#else 
