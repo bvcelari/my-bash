@@ -110,20 +110,17 @@ my-git-wipeOutAllButMasterOR (){
 my-git-removeArrayBranch (){
     arr=("$@")
     arrL=("${#arr[@]}")
-   	for i in "${arr[@]}";
-      do
-          echo "$i"
-      done
-	# local branchArry=("$@")
-	#local branchArryLen="${#branchArry[@]}"
-	#if [ -z $branch ];then
-		 echo "[my-WARN]: ${arrL}"
-	#else 
-	     #Remote
-	     #git push origin --delete $branch
-		 #Locally
-		 #git branch -D $branch
-	#fi
+    if [[ ${arrL} -gt 0 ]]; then
+    	for i in "${arr[@]}";
+      	do
+          #Remote
+	      git push origin --delete $i
+		  #Locally
+		  git branch -D $i
+      	done
+    else
+        echo "[my-WARN]: ${arrL}" 	
+    fi
 }
 
 my-git-initRepo (){
