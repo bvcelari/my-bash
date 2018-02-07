@@ -156,13 +156,6 @@ my-open-notebook(){
 	atom $JENKINSFILES $JENKINSFILES_D $DOCKERFILES $SHARED_LIB $CB_KB $MY_KB $MACROS_HOME 
 }
 
-my-open-supportCjeCluster(){
-	cd $GITHUB/cloudbees/support-cluster-cje
-	my-git-revertUncommitedChanges
-	git pull origin master
-	cje unlock-project --force
-}
-
 my-up-artifactory(){
 	echo "\n\n [my-INFO]:Running as default on 8081\n User: admin - Pass: password\n\n"
 	command sh $ARTIFACTORY_HOME/bin/artifactory.sh 

@@ -132,3 +132,16 @@ my-clean-cjoc(){
         echo "[my-INFO]: $jenkins_home does not exist"
    fi
 }
+
+my-open-supportCjeWorkspace(){
+  cd $SUPPORT_CJE
+  my-git-revertUncommitedChanges
+  git pull origin master
+  cje unlock-project --force
+}
+
+my-new-supportCJEWorkspace(){
+  rm -rf $SUPPORT_CJE
+  git clone https://github.com/cloudbees/support-cluster-cje.git
+  cd $SUPPORT_CJE
+}
