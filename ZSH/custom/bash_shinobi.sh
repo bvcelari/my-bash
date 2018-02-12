@@ -148,8 +148,8 @@ my-new-supportCJEWorkspace(){
 }
 
 my-cbsupport-bundle-jenkins-test(){
-  local testFolder = "test"
-  local testLogFile = "jenkins.test${1}.log"
+  local testFolder="test"
+  local testLogFile="jenkins.test${1}.log"
   if [ ! -d "$testFolder" ]; then
         mkdir "$testFolder"
   fi
