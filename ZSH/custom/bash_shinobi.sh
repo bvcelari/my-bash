@@ -149,9 +149,6 @@ my-new-supportCJEWorkspace(){
 
 my-cbsupport-bundle-jenkins-test(){
   local testFolder="my-test-cases"
-  if [ ! -d "$testFolder" ]; then
-        mkdir "$testFolder"
-  fi
   if [ -z "$1" ];then
      echo "[my-ERROR]: type and ID (int number) for the test file"
   else
@@ -162,10 +159,14 @@ my-cbsupport-bundle-jenkins-test(){
       local msg=$2
       if [ -z "$msg" ];then
          echo "[my-ERROR]: A description of the test is needed"
-      else  
-        echo -e "=====================" >> $testLogFile
-        echo -e "Test description: ${msg}" >> $testLogFile
-        echo -e "=====================" >> $testLogFile
+      else 
+        if [ ! -d "$testFolder" ]; then
+          mkdir "$testFolder"
+        fi
+        echo "hola" 
+        echo -e "=====================" > $testLogFile
+        echo -e "Test description: ${msg}" > $testLogFile
+        echo -e "=====================" > $testLogFile
         nohup cbsupport-bundle-jenkins > $testLogFile 2>&1
       fi
     fi
