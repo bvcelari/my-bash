@@ -152,10 +152,22 @@ my-cbsupport-bundle-jenkins-test(){
   if [ ! -d "$testFolder" ]; then
         mkdir "$testFolder"
   fi
-  local testLogFile="jenkins.test${1}.log"
   if [ -z "$1" ];then
-     echo "[my-INFO]: introduce and ID (int number) for the case"
+     echo "[my-ERROR]: type and ID (int number) for the test file"
+  else
+    local testLogFile="jenkins.test${1}.log"
+    if [ -f "$testLogFile" ]; then
+      echo "[my-ERROR]: $testLogFile already exists in $testFolder"
+    else
+      local msg=$2
+      if [ -z "$msg" ];then
+         echo "[my-ERROR]: A description of the test is needed"
+      else  
+        echo -e "=====================" >> $testLogFile
+        echo -e "Test description: ${msg}" >> $testLogFile
+        echo -e "=====================" >> $testLogFile
+        nohup cbsupport-bundle-jenkins > $testLogFile 2>&1
+      fi
+    fi
   fi
-  echo "$testLogFile"
-  #nohup cbsupport-bundle-jenkins > jenkins.test$1.log 2>&1
 }
