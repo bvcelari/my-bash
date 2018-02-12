@@ -148,10 +148,13 @@ my-new-supportCJEWorkspace(){
 }
 
 my-cbsupport-bundle-jenkins-test(){
-  local testFolder="test"
-  local testLogFile="jenkins.test${1}.log"
+  local testFolder="my-test-cases"
   if [ ! -d "$testFolder" ]; then
         mkdir "$testFolder"
+  fi
+  local testLogFile="jenkins.test${1}.log"
+  if [ -z "$1" ];then
+     echo "[my-INFO]: introduce and ID (int number) for the case"
   fi
   echo "$testLogFile"
   #nohup cbsupport-bundle-jenkins > jenkins.test$1.log 2>&1
