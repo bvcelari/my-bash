@@ -45,10 +45,10 @@ my-up-cje(){
           echo "[my-INFO]: Creating new JENKINS_HOME as ${lab}"
        fi
        echo "[my-INFO]: Runing CJE ${lab} version ${version}"
-       cd "${jenkins_home}"
        JAVA_OPTS="$JAVA_OPTS_CBS -Dhudson.TcpSlaveAgentListener.hostName=cje${lab}.example.crl" \
        DEBUG_PORT=819${lab} HTTP_PORT=818${lab} \
        JENKINS_HOME=$jenkins_home HTTP_ADDRESS=0.0.0.0 cbsupport-jenkins je $version
+       cd "${jenkins_home}"
       else
         echo "[my-INFO]: Please enter a lab value between 1 and 3"
       fi
@@ -89,10 +89,10 @@ my-up-oss(){
       echo "[my-INFO]: Creating new JENKINS_HOME as ${lab}"
   fi
   echo "[my-INFO]: Runing OSS version ${version}"
-  cd "${jenkins_home}"
 	JAVA_OPTS="$JAVA_OPTS_CBS -Dhudson.TcpSlaveAgentListener.hostName=oss.example.crl" \
-    DEBUG_PORT=8194 HTTP_PORT=8184 \
-    JENKINS_HOME=$jenkins_home HTTP_ADDRESS=0.0.0.0 cbsupport-jenkins oss $version
+  DEBUG_PORT=8194 HTTP_PORT=8184 \
+  JENKINS_HOME=$jenkins_home HTTP_ADDRESS=0.0.0.0 cbsupport-jenkins oss $version
+  cd "${jenkins_home}"
 }
 
 my-clean-oss(){
@@ -117,10 +117,10 @@ my-up-cjoc(){
       echo "[my-INFO]: Creating new JENKINS_HOME as ${lab}"
   fi
   echo "[my-INFO]: Runing CJOC version ${version}"
-  cd "${jenkins_home}"
 	JAVA_OPTS="$JAVA_OPTS_CBS -Dhudson.TcpSlaveAgentListener.hostName=cjoc.example.crl" \
-    DEBUG_PORT=9181 HTTP_PORT=9191 \
-    JENKINS_HOME=$jenkins_home HTTP_ADDRESS=0.0.0.0 cbsupport-jenkins joc $version
+  DEBUG_PORT=9181 HTTP_PORT=9191 \
+  JENKINS_HOME=$jenkins_home HTTP_ADDRESS=0.0.0.0 cbsupport-jenkins joc $version
+  cd "${jenkins_home}"
 }
 
 my-clean-cjoc(){
