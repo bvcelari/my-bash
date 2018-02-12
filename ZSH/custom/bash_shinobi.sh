@@ -162,12 +162,11 @@ my-cbsupport-bundle-jenkins-test(){
       else 
         if [ ! -d "$testFolder" ]; then
           mkdir "$testFolder"
-        fi
-        echo "hola" 
-        echo -e "=====================" > $testLogFile
-        echo -e "Test description: ${msg}" > $testLogFile
-        echo -e "=====================" > $testLogFile
-        nohup cbsupport-bundle-jenkins > $testLogFile 2>&1
+        fi 
+        echo "=====================" > $testFolder/$testLogFile
+        echo "Test description: ${msg}" > $testFolder/$testLogFile
+        echo "=====================" > $testFolder/$testLogFile
+        # nohup cbsupport-bundle-jenkins > $testFolder/$testLogFile 2>&1
       fi
     fi
   fi
