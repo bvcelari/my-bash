@@ -146,3 +146,13 @@ my-new-supportCJEWorkspace(){
   git clone git@github.com:cloudbees/support-cluster-cje.git
   cd $SUPPORT_CJE
 }
+
+my-cbsupport-bundle-jenkins-test(){
+  local testFolder = "/test"
+  if [ ! -d "$jenkins_home" ]; then
+        mkdir "$testFolder"
+  fi
+  local testLogFile = "jenkins.test$1.log"
+  echo "jenkins.test$1.log"
+  #nohup cbsupport-bundle-jenkins > jenkins.test$1.log 2>&1
+}
