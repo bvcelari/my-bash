@@ -153,7 +153,7 @@ my-cbsupport-bundle-jenkins-test(){
      echo "[my-ERROR]: type and ID (int number) for the test file"
   else
     local testLogFile="jenkins.test${1}.log"
-    if [ -f "$testLogFile" ]; then
+    if [ -f "$testFolder/$testLogFile" ]; then
       echo "[my-ERROR]: $testLogFile already exists in $testFolder"
     else
       local msg=$2
