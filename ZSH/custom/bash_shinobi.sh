@@ -166,7 +166,7 @@ my-cbsupport-bundle-jenkins-test(){
         echo "=====================" >> $testFolder/$testLogFile
         echo "Test description: ${msg}" >> $testFolder/$testLogFile
         echo "=====================" >> $testFolder/$testLogFile
-        # nohup cbsupport-bundle-jenkins > $testFolder/$testLogFile 2>&1
+        nohup cbsupport-bundle-jenkins >> $testFolder/$testLogFile 2>&1
       fi
     fi
   fi
