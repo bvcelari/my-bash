@@ -183,8 +183,9 @@ my-cbsupport-bundle-backUpJenkinsHome(){
         mkdir "$backupFolder"
       fi
       tar -zcvf $backupFolder/$jenkins-home-$now.tar.gz $jenkins-home
+      echo "[my-INFO]: $backupFolder/$jenkins-home-$now.tar.gz is ready"
     else 
-       echo "[my-ERROR]: There is no $jenkins-home to backup"
+      echo "[my-ERROR]: There is no $jenkins-home to backup"
     fi
   else
     echo "[my-ERROR]: This is not a valid Support Bundle. There is no $manifestSB"
