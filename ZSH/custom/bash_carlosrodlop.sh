@@ -112,6 +112,13 @@ my-git-removeArrayBranch (){
     fi
 }
 
+my-git-removeBranch (){
+    #Remote
+	git push origin --delete $1
+	#Locally
+	git branch -D $1
+}
+
 my-git-initRepo (){
 	git init && git add . && git commit -am "Initialization"
 }
@@ -207,13 +214,15 @@ my-open-profile (){
 
 my-loader-profile (){
 	local profileBranch="$(cd $MY_PROFILES; git branch | grep \* | cut -d ' ' -f2)"
+	local back2Path=$(pwd)
 	if [ "$profileBranch" = "master" ]; then 
 		 cp $HOME/.zshrc $MY_PROFILES/
 		 cp $ZSH_CUSTOM/bash_carlosrodlop.sh $MY_PROFILES/ZSH/custom/
 		 cp $ZSH_CUSTOM/bash_shinobi.sh $MY_PROFILES/ZSH/custom/
 		 source $HOME/.zshrc
 		 cd $MY_PROFILES
-		 my-git-simple-push master
+		 git add .; git commit "update"; git push origin master
+		 cd $back2Path
 	else
     	echo "[my-ERROR]: Autosaving profile changes cancelled. It only works when branch = master" 
 	fi;
