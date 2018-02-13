@@ -221,7 +221,7 @@ my-loader-profile (){
 		 cp $ZSH_CUSTOM/bash_shinobi.sh $MY_PROFILES/ZSH/custom/
 		 source $HOME/.zshrc
 		 cd $MY_PROFILES
-		 git add .; git commit "update"; git push origin master
+		 git add .; git commit -m "update" ; git push origin master
 		 cd $back2Path
 	else
     	echo "[my-ERROR]: Autosaving profile changes cancelled. It only works when branch = master" 
