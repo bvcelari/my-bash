@@ -59,15 +59,6 @@ my-git-update-fork (){
 }
 
 
-my-git-simple-push (){
-    local branch2Push=$1
-	if [ -z $branch2Push ];then
-		echo "[my-INFO]:Please add branch2Push as parameter"
-	else	
-		git add . ; git commit -m  "update" ; git push origin $branch2Push
-	fi
-}
-
 my-git-revertUncommitedChanges () {
 	# Revert changes to modified files.
 	git reset --hard
@@ -147,6 +138,17 @@ my-git-newBranch(){
 		git checkout -b $newBranch
 	fi
 }
+
+my-tarDir (){
+  local directory=$1
+  local now=$(date +%d-%m-%Y-%M-%S)
+  tar -zcvf $directory-backup-$now.tar.gz $directory
+}	
+
+my-unTarDir (){
+   local directory=$1
+   tar -zxvf $directory	
+}	
 
 my-docker-login (){
 	docker login --username=$MY_USER
