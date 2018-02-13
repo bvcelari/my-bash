@@ -175,17 +175,17 @@ my-cbsupport-bundle-jenkins-test(){
 my-cbsupport-bundle-backUpJenkinsHome(){
   local backupFolder="my-backups"
   local manifestSB="manifest.md"
-  local jenkins-home="jenkins-home"
+  local jenkinsHome="jenkins-home"
   local now=$(date +%d-%m-%Y-%M-%S)
   if [ -f "$manifestSB" ]; then
-    if [ -d "$jenkins-home" ]; then
+    if [ -d "$jenkinsHome" ]; then
       if [ ! -d "$backupFolder" ]; then
         mkdir "$backupFolder"
       fi
       tar -zcvf $backupFolder/$jenkins-home-$now.tar.gz $jenkins-home
-      echo "[my-INFO]: $backupFolder/$jenkins-home-$now.tar.gz is ready"
+      echo "[my-INFO]: $backupFolder/$jenkinsHome-$now.tar.gz is ready"
     else 
-      echo "[my-ERROR]: There is no $jenkins-home to backup"
+      echo "[my-ERROR]: There is no $jenkinsHome to backup"
     fi
   else
     echo "[my-ERROR]: This is not a valid Support Bundle. There is no $manifestSB"
