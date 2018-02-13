@@ -148,7 +148,7 @@ my-new-supportCJEWorkspace(){
 }
 
 my-cbsupport-bundle-jenkins-test(){
-  local testFolder="my-test-cases"
+  local testFolder="my-logsTest"
   if [ -z "$1" ];then
      echo "[my-ERROR]: type and ID (int number) for the test file"
   else
@@ -169,5 +169,24 @@ my-cbsupport-bundle-jenkins-test(){
         nohup cbsupport-bundle-jenkins >> $testFolder/$testLogFile 2>&1
       fi
     fi
+  fi
+}
+
+my-cbsupport-bundle-backUpJenkinsHome(){
+  local backupFolder="my-backups"
+  local manifestSB="manifest.md"
+  local jenkins-home="jenkins-home"
+  local now=$(date +%d-%m-%Y-%M-%S)
+  if [ -f "$manifestSB" ]; then
+    if [ -d "$jenkins-home" ]; then
+      if [ ! -d "$backupFolder" ]; then
+        mkdir "$backupFolder"
+      fi
+      tar -zcvf $backupFolder/$jenkins-home-$now.tar.gz $jenkins-home
+    else 
+       echo "[my-ERROR]: There is no $jenkins-home to backup"
+    fi
+  else
+    echo "[my-ERROR]: This is not a valid Support Bundle. There is no $manifestSB"
   fi
 }
