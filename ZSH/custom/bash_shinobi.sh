@@ -182,7 +182,7 @@ my-cbsupport-bundle-backUpJenkinsHome(){
       if [ ! -d "$backupFolder" ]; then
         mkdir "$backupFolder"
       fi
-      tar -zcvf $jenkinsHome-$now.tar.gz $jenkinsHome
+      tar -zcvf $backupFolder/$jenkinsHome-$now.tar.gz $jenkinsHome
     else 
       echo "[my-ERROR]: There is no $jenkinsHome to backup"
     fi
