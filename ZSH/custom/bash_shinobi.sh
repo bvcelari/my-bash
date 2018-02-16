@@ -29,7 +29,7 @@ zd() {
 	fi
 }
 
-my-up-cje(){
+my-jenkins-cje-up(){
   if [ ! -z "$1" ];then
      lab=$1
      if [ "$lab" -gt 0 ] && [ "$lab" -lt 4 ];then
@@ -57,7 +57,7 @@ my-up-cje(){
   fi
 }
 
-my-clean-cje(){
+my-jenkins-cje-clean(){
   if [ ! -z "$1" ];then
      lab=$1
      if [ "$lab" -gt 0 ] && [ "$lab" -lt 4 ];then
@@ -76,7 +76,7 @@ my-clean-cje(){
   fi
 }
 
-my-up-oss(){
+my-jenkins-oss-up(){
   local version=$OSS_LTS_LATEST
   cd $jenkins_home
   if [ ! -z "$1" ];then
@@ -95,7 +95,7 @@ my-up-oss(){
   cd "${jenkins_home}"
 }
 
-my-clean-oss(){
+my-jenkins-oss-clean(){
    jenkins_home="${LABS}/jenkins-home-oss"
    if [ -d "$jenkins_home" ]; then
         rm -rf $jenkins_home
@@ -105,7 +105,7 @@ my-clean-oss(){
    fi
 }
 
-my-up-cjoc(){
+my-jenkins-cjoc-up(){
   local version=$CJP_VERSION
   if [ ! -z "$1" ];then
      version=$1
@@ -123,7 +123,7 @@ my-up-cjoc(){
   cd "${jenkins_home}"
 }
 
-my-clean-cjoc(){
+my-jenkins-cjoc-clean(){
    jenkins_home="${LABS}/jenkins-home-cjoc"
    if [ -d "$jenkins_home" ]; then
         rm -rf $jenkins_home
@@ -133,14 +133,14 @@ my-clean-cjoc(){
    fi
 }
 
-my-open-supportCjeWorkspace(){
+my-supportCJE-open(){
   cd $SUPPORT_CJE
   my-git-revertUncommitedChanges
   git pull origin master
   cje unlock-project --force
 }
 
-my-new-supportCJEWorkspace(){
+my-supportCJE-newWorkspace(){
   rm -rf $SUPPORT_CJE
   cd $GITHUB/cloudbees
   git clone git@github.com:cloudbees/support-cluster-cje.git
@@ -201,7 +201,7 @@ my-cbsupport-bundle-backUpJenkinsHome(){
   fi
 }
 
-my-ssh-unicorn(){
+my-cjp_unicorn-ssh(){
   local USER="ubuntu"
   local MACHINE=$1
   local UNICORN_DOMAIN="unicorn.beescloud.com"

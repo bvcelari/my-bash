@@ -161,11 +161,11 @@ my-docker-login (){
 	docker login --username=$MY_USER
 }	
 
-my-open-notebook(){
+my-notebook-open(){
 	atom $JENKINSFILES $JENKINSFILES_D $DOCKERFILES $SHARED_LIB $CB_KB $MY_KB $MACROS_HOME 
 }
 
-my-up-artifactory(){
+my-artifactory-up(){
 	echo "\n\n [my-INFO]:Running as default on 8081\n User: admin - Pass: password\n\n"
 	command sh $ARTIFACTORY_HOME/bin/artifactory.sh 
 }
@@ -191,18 +191,18 @@ my-set-java(){
 	export JAVA_HOME=$(/usr/libexec/java_home)
 }	
 
-my-loader-sublime(){
+my-sublime-load(){
   #To add sublime create symbolic link
   if [ ! -L /usr/local/bin/sublime ]; then
   	  ln -s /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/sublime
   fi
 }
 
-my-open-profile (){
+my-profile-open (){
 	$TEXT_EDITOR $ZSH
 }
 
-my-loader-profile (){
+my-profile-load (){
 	local profileBranch="$(cd $MY_PROFILES; git branch | grep \* | cut -d ' ' -f2)"
 	local back2Path=$(pwd)
 	if [ "$profileBranch" = "master" ]; then 
@@ -218,9 +218,6 @@ my-loader-profile (){
 	fi;
 }
 
-my-host-edit (){
-  $TEXT_EDITOR /etc/hosts
-}
 
 my-set-alias(){
   alias grep='grep --color=auto'
@@ -233,6 +230,6 @@ my-set-alias(){
 # INIT 
 ###################
 
-my-loader-sublime
+my-sublime-load
 my-set-java
 my-set-alias
