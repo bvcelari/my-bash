@@ -170,16 +170,6 @@ my-up-artifactory(){
 	command sh $ARTIFACTORY_HOME/bin/artifactory.sh 
 }
 
-my-ssh-unicorn(){
-	local USER="ubuntu"
-	local MACHINE=$1
-	local UNICORN_DOMAIN="unicorn.beescloud.com"
-	if [ -z $MACHINE ];then
-     echo "[my-INFO]:please, specify a machine to connect to"
-	else	
-		ssh $USER@$MACHINE.$UNICORN_DOMAIN -i /Users/carlosrodlop/.aws/unicorn-team.pem
-	fi	
-}
 
 my-ngrock-http-tunel(){
 	local HTTP_PORT=$1

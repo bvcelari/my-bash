@@ -147,6 +147,16 @@ my-new-supportCJEWorkspace(){
   cd $SUPPORT_CJE
 }
 
+my-supportCJE-blocked(){
+  cd $SUPPORT_CJE
+  sh change_status.sh carlosr blocked
+} 
+
+my-supportCJE-not_blocked(){
+  cd $SUPPORT_CJE
+  sh change_status.sh carlosr not_blocked
+} 
+
 my-cbsupport-bundle-jenkins-test(){
   local testFolder="my-logsTest"
   if [ -z "$1" ];then
@@ -190,3 +200,18 @@ my-cbsupport-bundle-backUpJenkinsHome(){
     echo "[my-ERROR]: This is not a valid Support Bundle. There is no $manifestSB"
   fi
 }
+
+my-ssh-unicorn(){
+  local USER="ubuntu"
+  local MACHINE=$1
+  local UNICORN_DOMAIN="unicorn.beescloud.com"
+  if [ -z $MACHINE ];then
+     echo "[my-INFO]:please, specify a machine to connect to"
+  else  
+    ssh $USER@$MACHINE.$UNICORN_DOMAIN -i /Users/carlosrodlop/.aws/unicorn-team.pem
+  fi  
+}
+
+ 
+
+
