@@ -10,6 +10,7 @@ export CB_SUPPORT_HOME="$HOME/Support"
 export LABS="$CB_SUPPORT_HOME/labs"
 export CASES="$CB_SUPPORT_HOME/cases"
 export JAVA_OPTS_CBS="-Djenkins.model.Jenkins.slaveAgentPort=$(($RANDOM%63000+2001)) -Djenkins.install.runSetupWizard=false -Djenkins.model.Jenkins.logStartupPerformance=true"
+export PSE_HOME="/opt/pse/pse_1.11.2"
 
 # SYSTEM
 export PATH=$PATH:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec
@@ -138,6 +139,10 @@ my-supportCJE-open(){
   my-git-revertUncommitedChanges
   git pull origin master
   cje unlock-project --force
+}
+
+my-cliCJE-open(){
+  atom $PSE_HOME
 }
 
 my-supportCJE-newWorkspace(){
