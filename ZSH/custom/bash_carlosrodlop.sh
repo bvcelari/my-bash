@@ -158,7 +158,7 @@ my-unTarDir (){
 }	
 
 my-docker-login (){
-	docker login --username=$MY_USER
+	cat ~/.ssh/docker-pass.txt | docker login --username $MY_USER --password-stdin
 }	
 
 my-notebook-open(){
