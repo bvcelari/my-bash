@@ -152,7 +152,7 @@ my-docker-login (){
 	cat ~/.ssh/docker-pass.txt | docker login --username $MY_USER --password-stdin
 }
 
-my-docker-images-cleanup (){
+my-docker-cleanup (){
    # Stop all containers
    docker stop $(docker ps -a -q)
    # Remove all containers
