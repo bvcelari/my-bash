@@ -158,16 +158,22 @@ my-docker-cleanup (){
    # Remove all containers
    docker rm $(docker ps -a -q)
    # Remove all images
-   docker image rm $(docker image -q)
+   docker image rm -f $(docker image ls -q)
    # Cleaning dangling images (like "garbage collector")
    docker rmi -f $(docker images -f "dangling=true" -q)
 }
 
-my-docker-images-BuildAndLoad-toMockOrg (){
-   
-} 
+my-docker-image-BuildAndLoad-toMockOrg (){
+   local imagetag
+   while [[ $imagetag = "" ]]; do
+   		echo -n "Insert image name and tag (e.g 'testImage:1') [ENTER]: " 
+		read imagetag
+   done	
+   docker image build -t mockcarlosrodlop/$imagetag .
+   docker push mockcarlosrodlop/$imagetag
+}
 
-my-docker-container-ssh (){
+my-docker-container-bash (){
 	docker container run -ti $1 bash
 }
 
