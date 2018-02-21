@@ -164,7 +164,7 @@ my-docker-cleanup (){
 }
 
 my-docker-image-Build-PushtoMockOrg (){
-   local dockerOrg="mockcarlosrodlop"
+   local dockerOrg="mockcarlosrodloporg"
    local imagetag
    local imageId	
    my-docker-login
