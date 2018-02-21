@@ -163,17 +163,19 @@ my-docker-cleanup (){
    docker rmi -f $(docker images -f "dangling=true" -q)
 }
 
-my-docker-image-BuildAndLoad-toMockOrg (){
+my-docker-image-Build-PushtoMockOrg (){
    local dockerOrg="mockcarlosrodlop"
    local imagetag
    local imageId	
    my-docker-login
    while [[ $imagetag = "" ]]; do
-   		read -p "Insert image name and tag (e.g 'testImage:1', Note: DO NOT USE CAPITAL LETTER) [ENTER]: " imagetag
+	   echo -n "Insert image name and tag (e.g 'testImage:1', Note: DO NOT USE CAPITAL LETTER) [ENTER]: " 
+	   read imagetag
    done
    docker image build -t $dockerOrg/$imagetag .
-   while [[ $imagetag = "" ]]; do
-   		read -p "Insert image id (e.g '638f50228639') " imageId
+   while [[ $imageId = "" ]]; do
+   	   echo -n "Insert image id (e.g 'testImage:1') [ENTER]: " 
+	   read imageId
    done
    docker tag $imageId $dockerOrg/$imagetag
    docker push $dockerOrg/$imagetag
