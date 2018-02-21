@@ -164,7 +164,7 @@ my-docker-cleanup (){
 }
 
 my-docker-image-BuildAndLoad-toMockOrg (){
-   local imagetag
+   local imagetag=$1
    while [[ $imagetag = "" ]]; do
    		echo -n "Insert image name and tag (e.g 'testImage:1') [ENTER]: " 
 		read imagetag
