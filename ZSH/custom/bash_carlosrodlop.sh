@@ -164,14 +164,17 @@ my-docker-cleanup (){
 }
 
 my-docker-image-BuildAndLoad-toMockOrg (){
+   local dockerOrg="mockcarlosrodlop"
+   local imagetag	
    my-docker-login
-   local imagetag
+   
    while [[ $imagetag = "" ]]; do
    		echo -n "Insert image name and tag (e.g 'testImage:1', Note: DO NOT USE CAPITAL LETTER) [ENTER]: " 
 		read imagetag
    done	
-   docker image build -t mockcarlosrodlop/$imagetag .
-   docker push mockcarlosrodlop/$imagetag
+   docker image build -t $dockerOrg/$imagetag .
+   docker tag $dockerOrg/$imagetag
+   docker push $dockerOrg/$imagetag
 }
 
 my-docker-container-bash (){
