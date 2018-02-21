@@ -173,7 +173,6 @@ my-docker-image-Build-PushtoMockOrg (){
 	   read imagetag
    done
    docker image build -t $dockerOrg/$imagetag .
-   sleep 30
    while [[ $imageId = "" ]]; do
    	   echo -n "Insert image id (e.g 'testImage:1') [ENTER]: " 
 	   read imageId
