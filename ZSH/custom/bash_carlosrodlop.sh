@@ -173,10 +173,11 @@ my-docker-image-BuildAndLoad-toMockOrg (){
 		read imagetag
    done	
    docker image build -t $dockerOrg/$imagetag .
+   docker image ls
    while [[ $imageId = "" ]]; do
    		echo -n "Insert image id [ENTER]: " 
 		read imageId
-   done	 
+   done	
    docker tag $imageId $dockerOrg/$imagetag
    docker push $dockerOrg/$imagetag
 }
