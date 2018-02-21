@@ -153,10 +153,14 @@ my-docker-login (){
 }
 
 my-docker-images-cleanup (){
+   # Stop all containers
+   docker stop $(docker ps -a -q)
+   # Remove all containers
+   docker rm $(docker ps -a -q)
    # Remove all images
-   docker image rm $(docker image ls -q)
+   docker image rm $(docker image -q)
    # Cleaning dangling images (like "garbage collector")
-   docker rmi $(docker images -f "dangling=true" -q)
+   docker rmi -f $(docker images -f "dangling=true" -q)
 }
 
 my-docker-images-BuildAndLoad-toMockOrg (){
