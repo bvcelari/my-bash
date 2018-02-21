@@ -13,7 +13,7 @@ export JAVA_OPTS_CBS="-Djenkins.model.Jenkins.slaveAgentPort=$(($RANDOM%63000+20
 export PSE_HOME="/opt/pse/pse_1.11.2"
 
 # SYSTEM
-export PATH=$PATH:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec
+export PATH=$PATH:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec:$PSE_HOME/bin
 
 ##################
 # FUNCTIONS

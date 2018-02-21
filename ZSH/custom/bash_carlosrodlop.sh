@@ -33,15 +33,13 @@ export TEXT_EDITOR="sublime"
 export DOCKER_HOME="/opt/docker"
 export AWS_HOME="/Users/$MY_USER/.aws"
 
-
-
 # CLOUDBEES SUPPORT
 export TRAINING="$CB_SUPPORT_HOME/training"
 export CASES="$CB_SUPPORT_HOME/cases"
 export JAVA_OPTS_CBS="-Djenkins.model.Jenkins.slaveAgentPort=$(($RANDOM%63000+2001)) -Djenkins.install.runSetupWizard=false -Djenkins.model.Jenkins.logStartupPerformance=true"
 
 # SYSTEM
-export PATH=$PATH:$MAVEN_HOME/bin:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec:$PSE_HOME/bin:$VM_MANAGE:$OPSCORE_HOME
+export PATH=$PATH:$MAVEN_HOME/bin:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec:$VM_MANAGE:$OPSCORE_HOME
 export GREP_COLOR="1;37;41"
 
 ### Setting for the new UTF-8 terminal for SSH
@@ -174,7 +172,7 @@ my-docker-image-Build-PushtoMockOrg (){
    done
    docker image build -t $dockerOrg/$imagetag .
    while [[ $imageId = "" ]]; do
-   	   echo -n "Insert image id (e.g 'testImage:1') [ENTER]: " 
+   	   echo -n "Insert image id (e.g '638f50228639') [ENTER]: " 
 	   read imageId
    done
    docker tag $imageId $dockerOrg/$imagetag
