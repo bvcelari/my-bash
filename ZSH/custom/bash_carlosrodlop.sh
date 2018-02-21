@@ -159,11 +159,11 @@ my-docker-images-cleanup (){
    docker rmi $(docker images -f "dangling=true" -q)
 }
 
-my-dockerImages-toMockOrg (){
+my-docker-images-BuildAndLoad-toMockOrg (){
    
 } 
 
-my-dockerImages-ssh (){
+my-docker-container-ssh (){
 	docker container run -ti $1 bash
 }
 
