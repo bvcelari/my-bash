@@ -152,12 +152,12 @@ my-docker-login (){
 	cat ~/.ssh/docker-pass.txt | docker login --username $MY_USER --password-stdin
 }
 
-my-dockerImages-cleanup ()
+my-docker-images-cleanup ()
    # Remove all images
    docker image rm $(docker image ls -q)
    # Cleaning dangling images (like "garbage collector")
    docker rmi $(docker images -f "dangling=true" -q)
-}   
+}
 
 my-dockerImages-toMockOrg ()
    
