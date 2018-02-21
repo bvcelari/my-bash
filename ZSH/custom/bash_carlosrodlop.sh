@@ -168,16 +168,9 @@ my-docker-image-BuildAndLoad-toMockOrg (){
    local imagetag
    local imageId	
    my-docker-login
-   while [[ $imagetag = "" ]]; do
-   		echo -n "Insert image name and tag (e.g 'testImage:1', Note: DO NOT USE CAPITAL LETTER) [ENTER]: " 
-		read imagetag
-   done	
+   read -p "Insert image name and tag (e.g 'testImage:1', Note: DO NOT USE CAPITAL LETTER) [ENTER]: " imagetag
    docker image build -t $dockerOrg/$imagetag .
-   docker image ls | grep $dockerOrg/$imagetag
-   while [[ $imageId = "" ]]; do
-   		echo -n "Insert image id [ENTER]: " 
-		read imageId
-   done	
+   read -p "Insert image id (e.g '638f50228639') " imageId
    docker tag $imageId $dockerOrg/$imagetag
    docker push $dockerOrg/$imagetag
 }
