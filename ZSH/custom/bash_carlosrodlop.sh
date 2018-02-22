@@ -171,11 +171,11 @@ my-docker-image-Build-PushtoMockOrg (){
 	   read imagetag
    done
    docker image build -t $dockerOrg/$imagetag .
-   while [[ $imageId = "" ]]; do
-   	   echo -n "Insert <IMAGE_ID> (e.g '638f50228639') [ENTER]: " 
-	   read imageId
-   done
-   docker tag $imageId $dockerOrg/$imagetag
+   # while [[ $imageId = "" ]]; do
+   # 	   echo -n "Insert <IMAGE_ID> (e.g '638f50228639') [ENTER]: " 
+	  #  read imageId
+   # done
+   # docker tag $imageId $dockerOrg/$imagetag
    docker push $dockerOrg/$imagetag
 }
 
