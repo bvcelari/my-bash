@@ -163,19 +163,13 @@ my-docker-cleanup (){
 
 my-docker-image-Build-PushtoMockOrg (){
    local dockerOrg="mockcarlosrodloporg"
-   local imagetag
-   local imageId	
+   local imagetag	
    my-docker-login
    while [[ $imagetag = "" ]]; do
 	   echo -n "Insert <image_name>:<TAG> (e.g 'testImage:v1', Note: DO NOT USE CAPITAL LETTER) [ENTER]: " 
 	   read imagetag
    done
    docker image build -t $dockerOrg/$imagetag .
-   # while [[ $imageId = "" ]]; do
-   # 	   echo -n "Insert <IMAGE_ID> (e.g '638f50228639') [ENTER]: " 
-	  #  read imageId
-   # done
-   # docker tag $imageId $dockerOrg/$imagetag
    docker push $dockerOrg/$imagetag
 }
 

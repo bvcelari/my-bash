@@ -139,6 +139,7 @@ my-supportCJE-open(){
   my-git-revertUncommitedChanges
   git pull origin master
   cje unlock-project --force
+  open -a Google\ Chrome https://github.com/cloudbees/support-cluster-cje
 }
 
 my-cliCJE-open(){
@@ -154,6 +155,7 @@ my-supportCJE-newWorkspace(){
 
 my-supportCJE-blocked(){
   cd $SUPPORT_CJE
+  git pull origin master
   sh change_status.sh carlosr blocked
 } 
 
