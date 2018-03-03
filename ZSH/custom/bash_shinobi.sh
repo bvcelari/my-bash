@@ -155,12 +155,15 @@ my-supportCJE-newWorkspace(){
 
 my-supportCJE-blocked(){
   cd $SUPPORT_CJE
-  git pull origin master
+  echo "[my-INFO] updating project againts remote origin"
+  git pull origin mastermy-profi
+  echo "[my-INFO] Blocking the project"
   sh change_status.sh carlosr blocked
 } 
 
 my-supportCJE-not_blocked(){
   cd $SUPPORT_CJE
+  echo "[my-INFO] Unblocking the project"
   sh change_status.sh carlosr not_blocked
 } 
 
@@ -219,6 +222,16 @@ my-cjp_unicorn-ssh(){
   fi  
 }
 
+my-cjp_unicorn-ssh(){
+  local USER="ubuntu"
+  local MACHINE=$1
+  local UNICORN_DOMAIN="unicorn.beescloud.com"
+  if [ -z $MACHINE ];then
+     echo "[my-INFO]:please, specify a machine to connect to"
+  else  
+    ssh $USER@$MACHINE.$UNICORN_DOMAIN -i /Users/carlosrodlop/.aws/unicorn-team.pem
+  fi  
+}
  
 
 

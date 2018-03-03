@@ -13,12 +13,9 @@ export RIOXSVN="$CODE/riouxsvn"
 export CB_KB="$GITHUB/$MY_USER/support-kb-articles"
 ##### Personal Notebooks
 export MY_KB="$GITHUB/$MY_USER/my-kb"
-export MY_PROFILES="$GITHUB/$MY_USER/machine-setup"
+export MY_PROFILES="$GITHUB/$MY_USER/my-bash"
 export MACROS_HOME="$GITHUB/cloudbees/support-macros"
 ##### Testing
-export JENKINSFILES="$GITHUB/carlosrodlop_mock_org/jenkinsFiles-examples"
-export JENKINSFILES_D="$GITHUB/carlosrodlop_mock_org/jenkinsFilesD-examples"
-export SHARED_LIB="$GITHUB/carlosrodlop_mock_org/workflowLibs"
 export DOCKERFILES="$GITHUB/carlosrodlop_mock_org/dockerFiles-examples"
 export PROJECT="$TRAINING/CloudBees/bees-pse-project"
 export SUPPORT_CJE="$GITHUB/cloudbees/support-cluster-cje"
