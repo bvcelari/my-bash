@@ -199,9 +199,9 @@ my-search-pattern-4file(){
    local resultFile=results-$pattern.md
    echo "## FILE"
    echo "File : $file2search" >> $resultFile
-   echo "## TOTAL number of coincidences of $pattern"
+   echo "## TOTAL number of coincidences of $pattern" >> $resultFile
    cat $file2search | grep $pattern | sort | uniq -c >> $resultFile
-   echo "## Context of the $pattern"
+   echo "## Context of the $pattern" >> $resultFile
    cat $file2search | grep -A 6 -B 2 $pattern >> $resultFile
    sublime $resultFile
 }	
