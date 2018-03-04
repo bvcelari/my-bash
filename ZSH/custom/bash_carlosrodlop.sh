@@ -201,7 +201,7 @@ my-search-pattern-4file(){
    	if [ -f "$resultFile" ]; then
    		rm resultFile
    	fi	
-   	echo "## FILE"
+   	echo "FILE"
    	echo "File : $file2search" >> $resultFile
    	echo "\n\n TOTAL number of coincidences of $pattern" >> $resultFile
    	cat $file2search | grep $pattern | sort | uniq -c >> $resultFile
