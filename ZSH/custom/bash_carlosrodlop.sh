@@ -199,7 +199,7 @@ my-search-pattern-4file(){
    	done
    	local resultFile=results-$pattern.md
    	if [ -f "$resultFile" ]; then
-   		rm resultFile
+   		rm $resultFile
    	fi	
    	echo "FILE"
    	echo "File : $file2search" >> $resultFile
