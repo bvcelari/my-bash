@@ -192,18 +192,25 @@ my-search-pattern-4file(){
    		echo -n "[my-INFO]: File to search [ENTER]: " 
 		read file2search
    done
-   while [[ $pattern = "" ]]; do
+   if [ -f "$file" ]; then
+	while [[ $pattern = "" ]]; do
    		echo -n "[my-INFO]: pattern (e.g SEVERE) [ENTER]: " 
 		read pattern
-   done
-   local resultFile=results-$pattern.md
-   echo "## FILE"
-   echo "File : $file2search" >> $resultFile
-   echo "\n\n TOTAL number of coincidences of $pattern" >> $resultFile
-   cat $file2search | grep $pattern | sort | uniq -c >> $resultFile
-   echo "\n\n Context of the $pattern" >> $resultFile
-   cat $file2search | grep -A 6 -B 2 $pattern >> $resultFile
-   sublime $resultFile
+   	done
+   	local resultFile=results-$pattern.md
+   	if [ -f "$resultFile" ]; then
+   		rm resultFile
+   	fi	
+   	echo "## FILE"
+   	echo "File : $file2search" >> $resultFile
+   	echo "\n\n TOTAL number of coincidences of $pattern" >> $resultFile
+   	cat $file2search | grep $pattern | sort | uniq -c >> $resultFile
+   	echo "\n\n Context of the $pattern" >> $resultFile
+   	cat $file2search | grep -A 6 -B 2 $pattern >> $resultFile
+   	sublime $resultFile
+   	else
+	echo "[my-ERROR]: $file not found."
+   fi
 }	
 
 my-notebook-open(){
