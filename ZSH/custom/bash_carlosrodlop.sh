@@ -188,7 +188,7 @@ my-unTarDir (){
 my-search-pattern-4file(){
    local file2search
    local pattern
-   echo -n "[my-INFO]: Listing files in $(pwd)"
+   echo -n "[my-INFO]: Listing files in: $(pwd)"
    ls 
    while [[ $file2search = "" ]]; do
    		echo -n "[my-INFO]: File to search [ENTER]: " 
