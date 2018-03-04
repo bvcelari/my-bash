@@ -192,7 +192,7 @@ my-search-pattern-4file(){
    		echo -n "[my-INFO]: File to search [ENTER]: " 
 		read file2search
    done
-   if [ -f "$file" ]; then
+   if [ -f "$file2search" ]; then
 	while [[ $pattern = "" ]]; do
    		echo -n "[my-INFO]: pattern (e.g SEVERE) [ENTER]: " 
 		read pattern
@@ -208,7 +208,7 @@ my-search-pattern-4file(){
    	echo "\n\n Context of the $pattern" >> $resultFile
    	cat $file2search | grep -A 6 -B 2 $pattern >> $resultFile
    	sublime $resultFile
-   	else
+   else
 	echo "[my-ERROR]: $file not found."
    fi
 }	
