@@ -222,6 +222,24 @@ my-cjp_unicorn-ssh(){
   fi  
 }
 
+my-cbsupport-bundle-sshKeyPair(){
+  local isSupportBundle="config.xml"
+  local sshDirectory=".ssh"
+  local sshName=$1
+  if [ -f "$isSupportBundle" ]; then
+     if [ -d "$sshDirectory" ]; then
+      mkdir $sshDirectory
+     fi
+     while [[ $sshName = "" ]]; do
+      echo -n "[my-INFO]: ssh key-pair name [ENTER]: " 
+      read sshName
+     done
+     ssh-keygen -t rsa -C "$sshName" -f "$(pwd)/$sshDirectory/$sshName"
+  else
+     echo "[my-ERROR]: $(pwd) is not a JENKINS_HOME this function needs to be run inside it."
+  fi  
+} 
+
 my-cbsupport-bundle-jnlpSlave(){
   local dockerMacLocalhost="http://docker.for.mac.localhost"
   local secret
@@ -239,25 +257,13 @@ my-cbsupport-bundle-jnlpSlave(){
       echo -n "[my-INFO]: Localhost Jenkins port [ENTER]: " 
       read jenkinsPort
   done
-  docker run jenkins/jnlp-slave -url $dockerMacLocalhost:$jenkinsPort $secret $agentName
+  docker run jenkinsci/jnlp-slave -url $dockerMacLocalhost:$jenkinsPort $secret $agentName
 }
 
-my-cbsupport-bundle-sshKeyPair(){
-  local isSupportBundle="config.xml"
-  local sshDirectory=".ssh"
-  local sshName=$1
-  if [ -f "$isSupportBundle" ]; then
-     if [ -d "$sshDirectory" ]; then
-      mkdir $sshDirectory
-     fi
-     while [[ $sshName = "" ]]; do
-      echo -n "[my-INFO]: ssh key-pair name [ENTER]: " 
-      read sshName
-     done
-     ssh-keygen -t rsa -C "$sshName" -f "$(pwd)/$sshDirectory/$sshName"
-  else
-     echo "[my-ERROR]: $(pwd) is not a JENKINS_HOME this function needs to be run inside it."
-  fi  
+my-cbsupport-bundle-sshSlave(){
+  my-cbsupport-bundle-sshKeyPair
+  #ssh-copy-id -i ssh-slave-np  carlosrodlop@localhost 
+  docker run -p 2022:22 jenkinsci/ssh-slave "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDAep5NBklIoyh80PsCsvv3C6t/84yaSRurUjIquM7kjl9uxI1qJ2+VNwFRrom+SUzl0+BHHwJ3iFFKHH2R/zaRleWiA6yYZwIAohCX7SPpI0q5MzkyznliGu/sBenbkx+KDgrGXFFw1mmel19+2hsVz9YLZO+t2f7l4EqS5tUPllo4xEhmzs0LUjWWRTshBoCTOImZJAvKJA99yKH5hR8u+aiQljBJLVJ/I7LpqJz6O/Qy9FxPn38182W1mMZZp78UZWL/Sn7vlTNjIZhWNAi2OdN5ApaayUOgSESgN0fjCOPGbiKTFvUzzv0mUc2irgHNHj/Z0wykOZoOSc8x4ht/ ssh-slave-np"
 }
  
 
