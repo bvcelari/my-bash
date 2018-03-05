@@ -225,22 +225,22 @@ my-cjp_unicorn-ssh(){
 my-cbsupport-bundle-jnlpSlave(){
   local dockerMacLocalhost="http://docker.for.mac.localhost"
   local secret
-  local jenkins-port
-  local agent-name
+  local jenkinsPort
+  local agentName
   echo -n "[my-WARN]: Before continuing the JNLP agent needs to be created in Jenkins"
   while [[ $secret = "" ]]; do
       echo -n "[my-INFO]: JNLP secret [ENTER]: " 
       read secret
   done
-  while [[ $agent-name = "" ]]; do
-      echo -n "[my-INFO]: agent-name [ENTER]: " 
-      read agent-name
+  while [[ $agentName = "" ]]; do
+      echo -n "[my-INFO]: agent name [ENTER]: " 
+      read agentName
   done
-  while [[ $jenkins-port = "" ]]; do
+  while [[ $jenkinsPort = "" ]]; do
       echo -n "[my-INFO]: Localhost Jenkins port [ENTER]: " 
-      read jenkins-port
+      read jenkinsPort
   done
-  docker run jenkins/jnlp-slave -url $dockerMacLocalhost:$jenkins-port $secret $agent-name
+  docker run jenkins/jnlp-slave -url $dockerMacLocalhost:$jenkinsPort $secret $agentName
 }
 
 my-cbsupport-bundle-sshKeyPair(){
