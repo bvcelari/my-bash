@@ -227,7 +227,6 @@ my-cbsupport-bundle-jnlpSlave(){
   local secret
   local jenkinsPort
   local agentName
-  echo -n "[my-WARN]: Before continuing the JNLP agent needs to be created in Jenkins"
   while [[ $secret = "" ]]; do
       echo -n "[my-INFO]: JNLP secret [ENTER]: " 
       read secret
@@ -255,7 +254,7 @@ my-cbsupport-bundle-sshKeyPair(){
       echo -n "[my-INFO]: ssh key-pair name [ENTER]: " 
       read sshName
      done
-     ssh-keygen -t rsa -C "$sshName" -f "$sshName"
+     ssh-keygen -t rsa -C "$sshName" -f "$(pwd)/$sshDirectory/$sshName"
   else
      echo "[my-ERROR]: this function needs to be run inside a support bundle"
   fi  
