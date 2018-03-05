@@ -223,7 +223,7 @@ my-cjp_unicorn-ssh(){
 }
 
 my-cbsupport-bundle-jnlpSlave(){
-  local DOCKER-MACOS-localhost=http://docker.for.mac.localhost
+  local DOCKER-MACOS-localhost="http://docker.for.mac.localhost"
   local secret
   local jenkins-port
   local agent-name
@@ -244,7 +244,7 @@ my-cbsupport-bundle-jnlpSlave(){
 }
 
 my-cbsupport-bundle-sshKeyPair(){
-  local isSupportBundle="manifest.md"
+  local isSupportBundle="config.xml"
   local sshDirectory=".ssh"
   local sshName
   if [ -f "$isSupportBundle" ]; then
