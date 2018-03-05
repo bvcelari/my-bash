@@ -245,7 +245,7 @@ my-cbsupport-bundle-jnlpSlave(){
 my-cbsupport-bundle-sshKeyPair(){
   local isSupportBundle="config.xml"
   local sshDirectory=".ssh"
-  local sshName
+  local sshName=@1
   if [ -f "$isSupportBundle" ]; then
      if [ -d "$sshDirectory" ]; then
       mkdir $sshDirectory
