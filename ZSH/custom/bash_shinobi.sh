@@ -222,15 +222,25 @@ my-cjp_unicorn-ssh(){
   fi  
 }
 
-my-cjp_unicorn-ssh(){
-  local USER="ubuntu"
-  local MACHINE=$1
-  local UNICORN_DOMAIN="unicorn.beescloud.com"
-  if [ -z $MACHINE ];then
-     echo "[my-INFO]:please, specify a machine to connect to"
-  else  
-    ssh $USER@$MACHINE.$UNICORN_DOMAIN -i /Users/carlosrodlop/.aws/unicorn-team.pem
-  fi  
+my-cbsupport-bundle-jnlpSlave(){
+  local DOCKER-MACOS-localhost=http://docker.for.mac.localhost
+  local secret
+  local jenkins-port
+  local agent-name
+  echo -n "[my-WARN]: Before continuing the JNLP agent needs to be created in Jenkins"
+  while [[ $secret = "" ]]; do
+      echo -n "[my-INFO]: JNLP secret [ENTER]: " 
+      read secret
+  done
+  while [[ $agent-name = "" ]]; do
+      echo -n "[my-INFO]: agent-name [ENTER]: " 
+      read agent-name
+  done
+  while [[ $jenkins-port = "" ]]; do
+      echo -n "[my-INFO]: Localhost Jenkins port [ENTER]: " 
+      read jenkins-port
+  done
+  docker run jenkins/jnlp-slave -url $DOCKER-MACOS-localhost:$jenkins-port $secret $agent-name
 }
  
 
