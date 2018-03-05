@@ -243,7 +243,7 @@ my-cbsupport-bundle-jnlpSlave(){
   docker run jenkins/jnlp-slave -url $DOCKER-MACOS-localhost:$jenkins-port $secret $agent-name
 }
 
-my-cbsupport-sshKeyPair(){
+my-cbsupport-bundle-sshKeyPair(){
   local isSupportBundle="manifest.md"
   local sshDirectory=".ssh"
   local sshName
