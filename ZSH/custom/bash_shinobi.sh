@@ -255,7 +255,7 @@ my-cbsupport-bundle-sshKeyPair(){
       echo -n "[my-INFO]: ssh key-pair name [ENTER]: " 
       read sshName
      done
-     ssh-keygen -t rsa -C "$sshName" -f "$sshName_rsa"
+     ssh-keygen -t rsa -C "$sshName" -f "$sshName"
   else
      echo "[my-ERROR]: this function needs to be run inside a support bundle"
   fi  
