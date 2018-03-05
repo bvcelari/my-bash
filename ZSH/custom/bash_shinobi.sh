@@ -226,7 +226,7 @@ my-cbsupport-bundle-sshKeyPair(){
   local isSupportBundle="config.xml"
   local sshDirectory=".ssh"
   local sshName=$1
-  if [ -f "$isSupportBundle" ]; then
+  #if [ -f "$isSupportBundle" ]; then
      if [ -d "$sshDirectory" ]; then
       mkdir $sshDirectory
      fi
@@ -237,7 +237,7 @@ my-cbsupport-bundle-sshKeyPair(){
      ssh-keygen -t rsa -C "$sshName" -f "$(pwd)/$sshDirectory/$sshName"
   else
      echo "[my-ERROR]: $(pwd) is not a JENKINS_HOME this function needs to be run inside it."
-  fi  
+  #fi  
 } 
 
 my-cbsupport-bundle-jnlpSlave(){
