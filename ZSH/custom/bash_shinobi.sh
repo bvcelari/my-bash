@@ -223,7 +223,7 @@ my-cjp_unicorn-ssh(){
 }
 
 my-cbsupport-bundle-jnlpSlave(){
-  local DOCKER-MACOS-localhost="http://docker.for.mac.localhost"
+  local dockerMacLocalhost="http://docker.for.mac.localhost"
   local secret
   local jenkins-port
   local agent-name
@@ -240,7 +240,7 @@ my-cbsupport-bundle-jnlpSlave(){
       echo -n "[my-INFO]: Localhost Jenkins port [ENTER]: " 
       read jenkins-port
   done
-  docker run jenkins/jnlp-slave -url $DOCKER-MACOS-localhost:$jenkins-port $secret $agent-name
+  docker run jenkins/jnlp-slave -url $dockerMacLocalhost:$jenkins-port $secret $agent-name
 }
 
 my-cbsupport-bundle-sshKeyPair(){
