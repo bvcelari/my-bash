@@ -242,6 +242,24 @@ my-cbsupport-bundle-jnlpSlave(){
   done
   docker run jenkins/jnlp-slave -url $DOCKER-MACOS-localhost:$jenkins-port $secret $agent-name
 }
+
+my-cbsupport-sshKeyPair(){
+  local isSupportBundle="manifest.md"
+  local sshDirectory=".ssh"
+  local sshName
+  if [ -f "$isSupportBundle" ]; then
+     if [ -d "$sshDirectory" ]; then
+      mkdir $sshDirectory
+     fi
+     while [[ $sshName = "" ]]; do
+      echo -n "[my-INFO]: ssh key-pair name [ENTER]: " 
+      read sshName
+     done
+     ssh-keygen -t rsa -C "$sshName" -f "$sshName_rsa"
+  else
+     echo "[my-ERROR]: this function needs to be run inside a support bundle"
+  fi  
+}
  
 
 

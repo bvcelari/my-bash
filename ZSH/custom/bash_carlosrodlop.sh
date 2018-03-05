@@ -170,9 +170,6 @@ my-docker-image-Build-PushtoMockOrg (){
    docker push $dockerOrg/$imagetag
 }
 
-my-docker-container-bash (){
-	docker container run -ti $1 bash
-}
 
 my-tarDir (){
   local directory=$1
