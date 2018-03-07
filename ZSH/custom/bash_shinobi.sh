@@ -235,7 +235,7 @@ my-cbsupport-bundle-sshKeyPair(){
       echo -n "[my-INFO]: ssh key-pair name [ENTER]: " 
       read sshName
      done
-     ssh-keygen -t rsa -C "$sshName" -f "$(pwd)/$sshDirectory"
+     ssh-keygen -t rsa -C "$sshName" -f "$(pwd)/$sshDirectory/$sshName"
   else
      echo "[my-ERROR]: $(pwd) is not a JENKINS_HOME this function needs to be run inside it."
   fi  
