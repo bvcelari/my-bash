@@ -223,10 +223,11 @@ my-cjp_unicorn-ssh(){
 }
 
 my-cbsupport-bundle-sshKeyPair(){
+  # get fake seys from 
   local isSupportBundle="config.xml"
   local sshDirectory=".ssh"
   local sshName=$1
-  #if [ -f "$isSupportBundle" ]; then
+  if [ -f "$isSupportBundle" ]; then
      if [ -d "$sshDirectory" ]; then
       mkdir $sshDirectory
      fi
@@ -234,13 +235,15 @@ my-cbsupport-bundle-sshKeyPair(){
       echo -n "[my-INFO]: ssh key-pair name [ENTER]: " 
       read sshName
      done
-     ssh-keygen -t rsa -C "$sshName" -f "$(pwd)/$sshDirectory/$sshName"
-  #else
-     #echo "[my-ERROR]: $(pwd) is not a JENKINS_HOME this function needs to be run inside it."
-  #fi  
+     cd $sshDirectory
+     ssh-keygen -t rsa -C "$sshName" -f "$(pwd)/$sshDirectory"
+  else
+     echo "[my-ERROR]: $(pwd) is not a JENKINS_HOME this function needs to be run inside it."
+  fi  
 } 
 
 my-cbsupport-bundle-jnlpSlave(){
+  #Docker Community Edition 18.03.0 - host.docker.internal
   local dockerMacLocalhost="http://docker.for.mac.localhost"
   local secret
   local jenkinsPort
