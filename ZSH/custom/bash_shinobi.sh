@@ -134,7 +134,7 @@ my-jenkins-cjoc-clean(){
    fi
 }
 
-my-supportCJE-open(){
+my-demo-cje-open(){
   cd $SUPPORT_CJE
   my-git-revertUncommitedChanges
   git pull origin master
@@ -146,14 +146,14 @@ my-cliCJE-open(){
   atom $PSE_HOME
 }
 
-my-supportCJE-newWorkspace(){
+my-demo-cje-newWorkspace(){
   rm -rf $SUPPORT_CJE
   cd $GITHUB/cloudbees
   git clone git@github.com:cloudbees/support-cluster-cje.git
   cd $SUPPORT_CJE
 }
 
-my-supportCJE-blocked(){
+my-demo-cje-blocked(){
   cd $SUPPORT_CJE
   echo "[my-INFO] updating project againts remote origin"
   git pull origin mastermy-profi
@@ -161,7 +161,7 @@ my-supportCJE-blocked(){
   sh change_status.sh carlosr blocked
 } 
 
-my-supportCJE-not_blocked(){
+my-demo-cje-not_blocked(){
   cd $SUPPORT_CJE
   echo "[my-INFO] Unblocking the project"
   sh change_status.sh carlosr not_blocked
@@ -211,7 +211,7 @@ my-cbsupport-bundle-backUpJenkinsHome(){
   fi
 }
 
-my-cjp_unicorn-ssh(){
+my-demo-cjp-ssh(){
   local USER="ubuntu"
   local MACHINE=$1
   local UNICORN_DOMAIN="unicorn.beescloud.com"
