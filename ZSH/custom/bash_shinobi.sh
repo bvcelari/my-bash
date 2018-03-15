@@ -242,7 +242,7 @@ my-cbsupport-bundle-sshKeyPair(){
 } 
 
 my-cbsupport-bundle-jnlpSlave(){
-  #Docker Community Edition 18.03.0 - host.docker.internal
+  #Docker Community Edition 18.03.0 - docker.for.mac.host.internal
   local dockerMacLocalhost="http://docker.for.mac.localhost"
   local secret
   local jenkinsPort

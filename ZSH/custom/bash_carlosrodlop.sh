@@ -278,6 +278,14 @@ my-set-alias(){
   alias java7="export JAVA_HOME=$JAVA_7_HOME"
 }
 
+my-set-links(){
+  mkdir ~/code	
+  # /code -> ~/code
+  sudo ln -s ~/code /code
+  # ~/opt -> /opt
+  ln -s /opt ~/opt
+}
+
 
 ##################
 # INIT 
