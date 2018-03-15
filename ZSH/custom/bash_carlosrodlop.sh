@@ -149,9 +149,9 @@ my-docker-login (){
 
 my-docker-cleanup (){
    # Stop all containers
-   docker stop $(docker ps -a -q)
+   docker container stop $(docker container ls -aq)
    # Remove all containers
-   docker rm $(docker ps -a -q)
+   docker container rm $(docker container ls -aq)
    # Remove all images
    docker image rm -f $(docker image ls -q)
    # Cleaning dangling images (like "garbage collector")
