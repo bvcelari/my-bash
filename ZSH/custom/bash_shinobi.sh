@@ -1,16 +1,14 @@
 #### Repos
-##### CloudBees Support
-export CB_SUPPORT_HOME="$HOME/Support"
-export SHINOBI_HOME="$HOME/code/github/carlosrodlop/support-shinobi-tools"
 
 # CLOUDBEES SUPPORT
+export SHINOBI_HOME="$HOME/code/github/carlosrodlop/support-shinobi-tools"
+export PSE_HOME="/opt/cje/pse_1.11.4"
 export CJP_VERSION="2.32.3.2"
 export OSS_LTS_LATEST="2.32.1"
 export CB_SUPPORT_HOME="$HOME/Support"
 export LABS="$CB_SUPPORT_HOME/labs"
 export CASES="$CB_SUPPORT_HOME/cases"
 export JAVA_OPTS_CBS="-Djenkins.model.Jenkins.slaveAgentPort=$(($RANDOM%63000+2001)) -Djenkins.install.runSetupWizard=false -Djenkins.model.Jenkins.logStartupPerformance=true"
-export PSE_HOME="/opt/pse/pse_1.11.2"
 
 # SYSTEM
 export PATH=$PATH:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec:$PSE_HOME/bin
