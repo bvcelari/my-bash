@@ -204,13 +204,13 @@ my-search-pattern-4file(){
    	echo "===================================" >> $resultFile
    	echo "\n\nTOTAL number of coincidences of $pattern" >> $resultFile
    	echo "===================================" >> $resultFile
-   	cat $file2search | grep $pattern | sort | uniq -c >> $resultFile
+   	grep "$pattern" $file2search | sort | uniq -c >> $resultFile
    	echo "\n\nCONTEXT of the $pattern" >> $resultFile
    	echo "===================================" >> $resultFile
-   	cat $file2search | grep -A 6 -B 2 $pattern >> $resultFile
+   	grep -A 6 -B 2 "$pattern" $file2search >> $resultFile
    	sublime $resultFile
    else
-	echo "[my-ERROR]: $file not found."
+	echo "[my-ERROR]: $file2search not found."
    fi
 }	
 

@@ -136,7 +136,18 @@ my-demo-cje-open(){
   cd $SUPPORT_CJE
   my-git-revertUncommitedChanges
   git pull origin master
+  open -a Google\ Chrome https://github.com/cloudbees/support-cluster-cje
+}
+
+my-demo-cje-open-unlock(){
+  my-demo-cje-open
   cje unlock-project --force
+}
+
+my-demo-cje-open(){
+  cd $SUPPORT_CJE
+  my-git-revertUncommitedChanges
+  git pull origin master
   open -a Google\ Chrome https://github.com/cloudbees/support-cluster-cje
 }
 
@@ -265,6 +276,14 @@ my-cbsupport-bundle-sshSlave(){
   #ssh-copy-id -i ssh-slave-np  carlosrodlop@localhost 
   docker run -p 2022:22 jenkinsci/ssh-slave "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDAep5NBklIoyh80PsCsvv3C6t/84yaSRurUjIquM7kjl9uxI1qJ2+VNwFRrom+SUzl0+BHHwJ3iFFKHH2R/zaRleWiA6yYZwIAohCX7SPpI0q5MzkyznliGu/sBenbkx+KDgrGXFFw1mmel19+2hsVz9YLZO+t2f7l4EqS5tUPllo4xEhmzs0LUjWWRTshBoCTOImZJAvKJA99yKH5hR8u+aiQljBJLVJ/I7LpqJz6O/Qy9FxPn38182W1mMZZp78UZWL/Sn7vlTNjIZhWNAi2OdN5ApaayUOgSESgN0fjCOPGbiKTFvUzzv0mUc2irgHNHj/Z0wykOZoOSc8x4ht/ ssh-slave-np"
 }
- 
+
+my-cbsupport-bundle-analyzeSlowRequest(){
+  ## Get number of calls 
+  grep -h "elapsed in" $(pwd)/slow-requests/*  | awk '{print $6}' | sort | uniq -c | sort -n
+  ## Get IPs
+  grep -h "elapsed in" $(pwd)/slow-requests/*  | awk '{print $8}' | sort | uniq -c| sort -n
+  ## Sort calls by ellapse time. TODO: It needas to get the last entry for each file
+  grep -h "elapsed in" $(pwd)/slow-requests/* | sort -g
+}
 
 
