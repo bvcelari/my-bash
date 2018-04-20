@@ -55,7 +55,7 @@ my-git-update-fork (){
    		echo -n "[my-INFO]: File to search [ENTER]: " 
 		read branch2update
     done
-	git fetch upstream; git checkout $branch2update; git rebase upstream/$branch2updater; git push -f origin $branch2update
+	git fetch upstream; git checkout $branch2update; git rebase upstream/$branch2update; git push -f origin $branch2update
 }
 
 my-git-revertUncommitedChanges () {
