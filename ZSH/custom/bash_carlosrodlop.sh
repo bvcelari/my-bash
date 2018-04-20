@@ -50,9 +50,13 @@ export LC_ALL=en_US.UTF-8
 ## Git
 
 my-git-update-fork (){
-	git fetch upstream; git checkout master; git rebase upstream/master; git push -f origin master
+	local branch2update
+    while [[ $branch2update = "" ]]; do
+   		echo -n "[my-INFO]: File to search [ENTER]: " 
+		read branch2update
+    done
+	git fetch upstream; git checkout $branch2update; git rebase upstream/$branch2updater; git push -f origin $branch2update
 }
-
 
 my-git-revertUncommitedChanges () {
 	# Revert changes to modified files.
@@ -212,6 +216,10 @@ my-search-pattern-4file(){
    else
 	echo "[my-ERROR]: $file2search not found."
    fi
+}
+
+my-extract-substring_right(){
+	grep "$pattern" $file | rev | cut -d"$string" -f-1 | rev | sort | uniq -c| sort -n
 }	
 
 my-notebook-open(){
