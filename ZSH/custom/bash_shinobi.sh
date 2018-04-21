@@ -285,5 +285,3 @@ my-cbsupport-bundle-analyzeSlowRequest(){
   ## Sort calls by ellapse time. TODO: It needas to get the last entry for each file
   grep -h "elapsed in" $(pwd)/slow-requests/* | sort -g
 }
-
-

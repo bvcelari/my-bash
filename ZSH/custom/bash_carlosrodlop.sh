@@ -52,7 +52,7 @@ export LC_ALL=en_US.UTF-8
 my-git-update-fork (){
 	local branch2update
     while [[ $branch2update = "" ]]; do
-   		echo -n "[my-INFO]: File to search [ENTER]: " 
+   		echo -n "[my-INFO]: Branch to update (e.g. master) with fork changes [ENTER]: " 
 		read branch2update
     done
 	git fetch upstream; git checkout $branch2update; git rebase upstream/$branch2update; git push -f origin $branch2update
@@ -218,8 +218,13 @@ my-search-pattern-4file(){
    fi
 }
 
-my-extract-substring_right(){
-	grep "$pattern" $file | rev | cut -d"$string" -f-1 | rev | sort | uniq -c| sort -n
+my-extract-substring-byChar_right(){
+	grep "$pattern" $file | rev | cut -d"$char" -f-1 | rev | sort | uniq -c| sort -n
+}
+
+my-extract-substring-byString_right(){
+	# grep "level=>:error" messages | awk -F":message=>" '{print $2}' | sort | uniq -c| sort -n
+	grep "$pattern" messages | awk -F"$string" '{print $2}' | sort | uniq -c| sort -n
 }	
 
 my-notebook-open(){
