@@ -223,7 +223,7 @@ my-demo-cjp-ssh(){
       echo -n "[my-INFO]:please, specify a machine to connect to [ENTER]: "
       read machine
   done
-  ssh $USER@$$machine.$UNICORN_DOMAIN -i /Users/carlosrodlop/.aws/unicorn-team.pem
+  ssh $USER@$machine.$UNICORN_DOMAIN -i /Users/carlosrodlop/.aws/unicorn-team.pem
 }
 
 my-cbsupport-bundle-sshKeyPair(){
