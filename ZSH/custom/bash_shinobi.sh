@@ -132,13 +132,6 @@ my-jenkins-cjoc-clean(){
    fi
 }
 
-my-demo-cje-open(){
-  cd $SUPPORT_CJE
-  my-git-revertUncommitedChanges
-  git pull origin master
-  open -a Google\ Chrome https://github.com/cloudbees/support-cluster-cje
-}
-
 my-demo-cje-open-unlock(){
   my-demo-cje-open
   cje unlock-project --force
@@ -225,6 +218,7 @@ my-demo-cjp-ssh(){
   local MACHINE=$1
   local UNICORN_DOMAIN="unicorn.beescloud.com"
   local machine
+  open -a Google\ Chrome https://cloudbees.atlassian.net/wiki/spaces/CJP/pages/51183799/CJP+Test+Environments
   while [[ $machine = "" ]]; do
       echo -n "[my-INFO]:please, specify a machine to connect to [ENTER]"
       read machine
