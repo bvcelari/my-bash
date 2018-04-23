@@ -220,7 +220,7 @@ my-demo-cjp-ssh(){
   local machine
   open -a Google\ Chrome https://cloudbees.atlassian.net/wiki/spaces/CJP/pages/51183799/CJP+Test+Environments
   while [[ $machine = "" ]]; do
-      echo -n "[my-INFO]:please, specify a machine to connect to [ENTER]"
+      echo -n "[my-INFO]:please, specify a machine to connect to [ENTER]: "
       read machine
   done
   ssh $USER@$$machine.$UNICORN_DOMAIN -i /Users/carlosrodlop/.aws/unicorn-team.pem
