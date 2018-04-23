@@ -224,11 +224,12 @@ my-demo-cjp-ssh(){
   local USER="ubuntu"
   local MACHINE=$1
   local UNICORN_DOMAIN="unicorn.beescloud.com"
-  if [ -z $MACHINE ];then
-     echo "[my-INFO]:please, specify a machine to connect to"
-  else  
-    ssh $USER@$MACHINE.$UNICORN_DOMAIN -i /Users/carlosrodlop/.aws/unicorn-team.pem
-  fi  
+  local machine
+  while [[ $machine = "" ]]; do
+      echo -n "[my-INFO]:please, specify a machine to connect to [ENTER]"
+      read machine
+  done
+  ssh $USER@$$machine.$UNICORN_DOMAIN -i /Users/carlosrodlop/.aws/unicorn-team.pem
 }
 
 my-cbsupport-bundle-sshKeyPair(){
