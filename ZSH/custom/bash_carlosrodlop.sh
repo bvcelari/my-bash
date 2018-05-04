@@ -218,14 +218,19 @@ my-search-pattern-4file(){
    fi
 }
 
-my-extract-substring-byChar_right(){
+my-extract-substring1File1Line-byChar_right(){
 	grep "$pattern" $file | rev | cut -d"$char" -f-1 | rev | sort | uniq -c| sort -n
 }
 
-my-extract-substring-byString_right(){
+my-extract-substring1File1Line-byString_right(){
 	# grep "level=>:error" messages | awk -F":message=>" '{print $2}' | sort | uniq -c| sort -n
 	grep "$pattern" messages | awk -F"$string" '{print $2}' | sort | uniq -c| sort -n
-}	
+}
+
+my-extract-substringNFilesNLines-byString-excluyingByOther(){
+	#grep -hr 'BLOCKED' .  -B 1 -A 5 | grep -v com.dynatrace.diagnostics.agent.af
+	grep -hr '$Search' .  -B 1 -A 5 | grep -v '$Exclude'	
+}
 
 my-notebook-open(){
 	atom $JENKINSFILES $JENKINSFILES_D $DOCKERFILES $SHARED_LIB $CB_KB $MY_KB $MACROS_HOME 
