@@ -269,6 +269,13 @@ my-sublime-load(){
   fi
 }
 
+my-visualCode-load(){
+  #To add sublime create symbolic link
+  if [ ! -L /usr/local/bin/code ]; then
+  	  ln -s /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code /usr/local/bin/code
+  fi
+}
+
 my-profile-open (){
 	$TEXT_EDITOR $ZSH
 }
