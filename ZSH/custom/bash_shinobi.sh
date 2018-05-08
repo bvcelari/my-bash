@@ -2,7 +2,7 @@
 
 # CLOUDBEES SUPPORT
 export SHINOBI_HOME="$HOME/code/github/carlosrodlop/support-shinobi-tools"
-export PSE_HOME="/opt/cje/pse_1.11.4"
+export PSE_HOME="/opt/cje/pse_1.11.5"
 export CJP_VERSION="2.32.3.2"
 export OSS_LTS_LATEST="2.32.1"
 export CB_SUPPORT_HOME="$HOME/Support"

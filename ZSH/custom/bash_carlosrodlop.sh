@@ -317,5 +317,6 @@ my-set-links(){
 ###################
 
 my-sublime-load
+my-visualCode-load
 my-set-java
 my-set-alias
