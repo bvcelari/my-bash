@@ -139,9 +139,14 @@ my-demo-cje-open-unlock(){
 
 my-demo-cje-open(){
   cd $SUPPORT_CJE
-  my-git-revertUncommitedChanges
   git pull origin master
-  open -a Google\ Chrome https://github.com/cloudbees/support-cluster-cje
+  cje unlock-project --force
+}
+
+my-demo-cje-close(){
+  cd $SUPPORT_CJE
+  my-git-revertUncommitedChanges
+  cje lock-project
 }
 
 my-cliCJE-open(){
@@ -161,12 +166,14 @@ my-demo-cje-blocked(){
   git pull origin mastermy-profi
   echo "[my-INFO] Blocking the project"
   sh change_status.sh carlosr blocked
+  open -a Google\ Chrome https://github.com/cloudbees/support-cluster-cje
 } 
 
 my-demo-cje-not_blocked(){
   cd $SUPPORT_CJE
   echo "[my-INFO] Unblocking the project"
   sh change_status.sh carlosr not_blocked
+  open -a Google\ Chrome https://github.com/cloudbees/support-cluster-cje
 } 
 
 my-cbsupport-bundle-jenkins-test(){
