@@ -13,6 +13,12 @@ export JAVA_OPTS_CBS="-Djenkins.model.Jenkins.slaveAgentPort=$(($RANDOM%63000+20
 # SYSTEM
 export PATH=$PATH:$SHINOBI_HOME/bin:$SHINOBI_HOME/exec:$PSE_HOME/bin
 
+# TRAINING CJE2
+export ZONE_HOSTNAME=support-cje2-carlosrodlop
+export ZONE_NAME=${ZONE_HOSTNAME}.beescloud.k8s.local
+export NAMESPACE=cje-on-${ZONE_HOSTNAME}
+export NGINX_DEPLOY=https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy
+
 ##################
 # FUNCTIONS
 ###################
